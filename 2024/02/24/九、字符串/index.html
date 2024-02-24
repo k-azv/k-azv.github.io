@@ -16,22 +16,21 @@
   <meta name="author" content="kazv">
   <meta name="keywords" content="">
   
-    <meta name="description" content="hello world">
+    <meta name="description" content="1. 简介 C 语言没有单独的字符串类型，字符串被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组，即 char 类型的数组。比如，字符串“Hello”是当作数组 &amp;#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&amp;#125; 处理的。 编译器会给数组分配一段连续内存，所有字符储存在相邻的内存单元之">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello world">
-<meta property="og:url" content="http://k-azv.github.io/2024/02/19/Hello%20world/index.html">
+<meta property="og:title" content="k-azv.github.io">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E4%B9%9D%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
 <meta property="og:site_name" content="k-azv.github.io">
-<meta property="og:description" content="hello world">
+<meta property="og:description" content="1. 简介 C 语言没有单独的字符串类型，字符串被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组，即 char 类型的数组。比如，字符串“Hello”是当作数组 &amp;#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&amp;#125; 处理的。 编译器会给数组分配一段连续内存，所有字符储存在相邻的内存单元之">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-19T13:27:11.000Z">
-<meta property="article:modified_time" content="2024-02-22T13:23:19.218Z">
+<meta property="article:published_time" content="2024-02-24T05:10:08.151Z">
+<meta property="article:modified_time" content="2024-02-23T14:18:05.417Z">
 <meta property="article:author" content="kazv">
-<meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hello world - k-azv.github.io</title>
+  <title>k-azv.github.io</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello world"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-19 21:27" pubdate>
-          2024年2月19日 晚上
+        <time datetime="2024-02-24 13:10" pubdate>
+          2024年2月24日 下午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          1.2k 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -268,13 +267,50 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello world</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>hello world</strong></p>
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p>C 语言<strong>没有单独的字符串类型</strong>，字符串<strong>被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组</strong>，<strong>即 <code>char</code> 类型的数组</strong>。比如，字符串“Hello”是当作数组 <code>&#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&#125;</code> 处理的。</p>
+<p>编译器会给数组分配一段连续内存，<strong>所有字符储存在相邻的内存单元之中</strong>。在<strong>字符串结尾，C 语言会自动添加一个全是二进制 <code>0</code> 的字节</strong>，<strong>写作 <code>\0</code> 字符</strong>，表示<strong>字符串结束</strong>。字符 <code>\0</code> 不同于字符 <code>0</code>，两者的 ASCII 码不同，前者的是0（二进制形式 <code>00000000</code>）。所以，字符串“Hello”实际储存的数组是 <code>&#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;\0&#39;&#125;</code>。</p>
+<p><strong>所有字符串的最后一个字符，都是 <code>\0</code><strong>。这样做的好处是，</strong>C 语言不需要知道字符串的长度，就可以读取内存里面的字符串</strong>，只要发现有一个字符是 <code>\0</code>，那么就知道字符串结束了。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> localString[<span class="hljs-number">10</span>];<br></code></pre></td></tr></table></figure>
+<p>上面示例声明了一个10个成员的字符数组，可以当作字符串。由于必须留一个位置给 <code>\0</code>，所以<strong>最多只能容纳9个字符的字符串</strong>。</p>
+<p>&#x3D;&#x3D;<strong>双引号之中</strong>的字符，会被<strong>自动视为字符数组</strong>。&#x3D;&#x3D;</p>
+<p>双引号里面是字符串，单引号里面是字符（[[..&#x2F;python&#x2F;一、基础知识&#x2F;2.变量和简单的数据类型|python]] 中，英文引号引起的都是字符串）[[杂项&#x2F;字符与字符串#字符与字符串的对比|字符与字符串]] #C语言与python的区别 </p>
+<p>如果字符串<strong>内部包含双引号</strong>，则该双引号需要&#x3D;&#x3D;使用反斜杠转义&#x3D;&#x3D;。</p>
+<p>C 语言允许合并多个字符串字面量，只要这些<strong>字符串之间没有间隔</strong>，或者<strong>只有空格</strong>，C 语言会将它们自动合并。效果类似 python 的 [[..&#x2F;python&#x2F;一、基础知识&#x2F;2.变量和简单的数据类型#2.3.2 f-字符串|f 字符串]] #C语言与python的区别 </p>
+<h1 id="2-字符串变量的声明"><a href="#2-字符串变量的声明" class="headerlink" title="2. 字符串变量的声明"></a>2. 字符串变量的声明</h1><blockquote>
+<p>字符串变量可以<strong>声明成一个字符数组</strong>，也可以<strong>声明成一个指针</strong>，指向字符数组。</p>
+</blockquote>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs abnf">// 写法一<br>char s[<span class="hljs-number">14</span>] <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, world!&quot;</span><span class="hljs-comment">;</span><br><br>// 写法二<br>char* s <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, world!&quot;</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 
+<p>上面两种写法都声明了一个字符串变量 <code>s</code>。如果采用第一种写法，由于字符数组的长度可以让编译器自动计算，所以声明时可以省略字符数组的长度</p>
+<p><strong>字符数组</strong>的<strong>长度</strong>，可以<strong>大于</strong>字符串的<strong>实际长度</strong>，但是<strong>不能小于</strong>字符串的<strong>实际长度</strong><br>空出来的位置会被<strong>初始化为 <code>\0</code></strong></p>
+<p><strong>字符指针和字符数组</strong>，这两种声明字符串变量的<strong>写法基本是等价的</strong>，但是有<strong>两个差异</strong>。</p>
+<ol>
+<li><strong>指针指向的字符串</strong>，在 C 语言内部<strong>被当作常量</strong>，<strong>不能修改</strong>字符串<strong>本身</strong><ol>
+<li>声明为指针时，系统会将字符串的字面量保存再内存的<strong>常量区</strong><br>字符串<strong>声明为指针后不得修改</strong>，可以在声明时<strong>使用<code>const</code>说明符</strong>，保证该字符串<strong>是只读的</strong>。</li>
+<li>声明为数组时，编译器会为数组<strong>单独分配一段内存</strong></li>
+</ol>
+</li>
+<li><strong>指针</strong>变量<strong>可以指向其它字符串</strong>。<ol>
+<li>字符指针可以指向另一个字符串。</li>
+<li>字符数组变量不能指向另一个字符串。<br>字符数组的<strong>数组名</strong>，<strong>总是</strong>指向<strong>初始化时的字符串地址</strong>，不能修改。<br>（字符数组的变量名，跟所指向的数组是<strong>绑定</strong>的，不能指向另一个地址）</li>
+<li><strong>数组变量</strong>是一个<strong>不可修改的左值</strong>，即不能用赋值运算符为它重新赋值。<br>想要重新赋值，必须使用 C 语言原生提供的 <code>strcpy()</code> 函数，通过字符串拷贝完成赋值。数组变量的<strong>地址还是不变的</strong>，即 <code>strcpy()</code> 只是<strong>在原地址写入新的字符串</strong>，而不是让数组变量指向新的地址。</li>
+</ol>
+</li>
+</ol>
+<h1 id="3-strlen"><a href="#3-strlen" class="headerlink" title="3. strlen()"></a>3. <code>strlen()</code></h1><blockquote>
+<p><code>strlen()</code> 函数<strong>返回字符串的字节长度</strong>，**不包括末尾的空字符 <code>\0</code>**。<br><code>strlen()</code>的原型在标准库的<code>string.h</code>文件中定义，使用时需要加载头文件<code>string.h</code>。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// string.h</span><br><span class="hljs-type">size_t</span> <span class="hljs-title function_">strlen</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* s)</span>;<br></code></pre></td></tr></table></figure>
+<p>它的<strong>参数是字符串变量</strong>，返回的是 <code>size_t</code> 类型的无符号整数，除非是极长的字符串，一般情况下当作 <code>int</code> 类型处理即可</p>
+<p>字符串长度（<code>strlen()</code>）与字符串变量长度（<code>sizeof()</code>），是两个不同的概念。<br>[[五、数据类型#8. sizeof 运算符|sizeof()]]</p>
+<h1 id="4-strcpy"><a href="#4-strcpy" class="headerlink" title="4. strcpy()"></a>4. strcpy()</h1>
                 
               </div>
             
@@ -282,13 +318,6 @@
             <div>
               <div class="post-metas my-3">
   
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Test/" class="print-no-link">#Test</a>
-      
-    </div>
   
 </div>
 
@@ -298,8 +327,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello world</div>
-      <div>http://k-azv.github.io/2024/02/19/Hello world/</div>
+      <div></div>
+      <div>http://k-azv.github.io/2024/02/24/九、字符串/</div>
     </div>
     <div class="license-meta">
       
@@ -311,7 +340,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月19日</div>
+          <div>2024年2月24日</div>
         </div>
       
       
@@ -343,7 +372,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/24/%E5%85%AB%E3%80%81%E6%95%B0%E7%BB%84/" title="">
+                      <a href="/2024/02/24/%E5%85%AD%E3%80%81%E6%8C%87%E9%92%88/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
@@ -352,6 +381,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/02/24/%E4%BA%8C%E3%80%81%E5%8F%98%E9%87%8F/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

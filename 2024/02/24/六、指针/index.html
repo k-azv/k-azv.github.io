@@ -16,22 +16,21 @@
   <meta name="author" content="kazv">
   <meta name="keywords" content="">
   
-    <meta name="description" content="hello world">
+    <meta name="description" content="1. 简介 指针是什么？首先，它是一个值，这个值代表一个[[杂项&#x2F;内存#1. 内存编址|内存地址]]，因此指针相当于指向某个内存地址的路标。 字符 * 表示指针，通常跟在类型关键字的后面，表示指针指向的是什么类型的值。比如，char* 表示一个指向字符的指针，float* 表示一个指向 float 类型的值的指针。星号 * 可以放在变量名与类型关键字（如 int）之间的任何地方  同一行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello world">
-<meta property="og:url" content="http://k-azv.github.io/2024/02/19/Hello%20world/index.html">
+<meta property="og:title" content="k-azv.github.io">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E5%85%AD%E3%80%81%E6%8C%87%E9%92%88/index.html">
 <meta property="og:site_name" content="k-azv.github.io">
-<meta property="og:description" content="hello world">
+<meta property="og:description" content="1. 简介 指针是什么？首先，它是一个值，这个值代表一个[[杂项&#x2F;内存#1. 内存编址|内存地址]]，因此指针相当于指向某个内存地址的路标。 字符 * 表示指针，通常跟在类型关键字的后面，表示指针指向的是什么类型的值。比如，char* 表示一个指向字符的指针，float* 表示一个指向 float 类型的值的指针。星号 * 可以放在变量名与类型关键字（如 int）之间的任何地方  同一行">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-19T13:27:11.000Z">
-<meta property="article:modified_time" content="2024-02-22T13:23:19.218Z">
+<meta property="article:published_time" content="2024-02-24T05:10:08.154Z">
+<meta property="article:modified_time" content="2024-02-23T12:01:01.331Z">
 <meta property="article:author" content="kazv">
-<meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hello world - k-azv.github.io</title>
+  <title>k-azv.github.io</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello world"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-19 21:27" pubdate>
-          2024年2月19日 晚上
+        <time datetime="2024-02-24 13:10" pubdate>
+          2024年2月24日 下午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          1k 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
@@ -268,12 +267,47 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello world</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>hello world</strong></p>
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p>指针是什么？首先，它是一个<strong>值</strong>，这个值<strong>代表一个[[杂项&#x2F;内存#1. 内存编址|内存地址]]<strong>，因此指针相当于</strong>指向某个内存地址的路标</strong>。</p>
+<p>字符 <code>*</code> 表示指针，通常<strong>跟在类型关键字的后面</strong>，表示指针指向的是什么类型的值。比如，<code>char*</code> 表示一个指向字符的指针，<code>float*</code> 表示一个指向 <code>float</code> 类型的值的指针。<br>星号 <code>*</code> 可以放在变量名与类型关键字（如 int）之间的任何地方</p>
+</blockquote>
+<p>同一行声明多个指针变量 <code>int * foo, * bar;</code></p>
+<p>一个指针指向的可能还是指针，这时就要用两个星号 <code>**</code> 表示。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>** foo;<br></code></pre></td></tr></table></figure>
+<p>示例表示变量 <code>foo</code> 是一个指针，指向的还是一个指针，第二个指针指向的则是一个整数。</p>
+<h1 id="2-运算符"><a href="#2-运算符" class="headerlink" title="2. * 运算符"></a>2. * 运算符</h1><blockquote>
+<p> <code>*</code> 这个符号除了表示指针以外，还可以作为运算符，用来<strong>取出指针变量所指向的内存地址里面的值</strong>。<br> 即将指针变量所指向的地址转化为其对应的值</p>
+</blockquote>
+<p>在 C 语言中，变量的声明存在<strong>作用域</strong>这一概念，使得不同块作用域中定义的变量无法相互干涉，代码块对于块作用域中变量的操作<strong>仅限</strong>于代码块内部，而指针变量使得变量<strong>直接指向</strong>值的<strong>内存地址</strong>，使得代码块内对于某一地址内储存的值进行的操作是<strong>永久的</strong>，也使得对该值得重复使用更加便利且节省空间</p>
+<h1 id="3-运算符"><a href="#3-运算符" class="headerlink" title="3. &amp; 运算符"></a>3. &amp; 运算符</h1><blockquote>
+<p><code>&amp;</code> 运算符用来取出一个变量所在的内存地址。<br>即 将某个值转换为其<strong>所在的内存地址</strong></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> x = <span class="hljs-number">1</span>;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;x&#x27;s address is %p\n&quot;</span>, &amp;x);<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<code>x</code> 是一个整数变量，<code>&amp;x</code> 就是 <code>x</code> 的值所在的内存地址。<code>printf()</code> 的** <code>%p</code> 是内存地址的占位符**，可以打印出内存地址。</p>
+<p><code>&amp;</code> 运算符与 <code>*</code> 运算符<strong>互为逆运算</strong>，下面的表达式总是成立。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> i = <span class="hljs-number">5</span>;<br><br><span class="hljs-keyword">if</span> (i == *(&amp;i)) <span class="hljs-comment">// 正确</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="4-指针变量的初始化"><a href="#4-指针变量的初始化" class="headerlink" title="4. 指针变量的初始化"></a>4. 指针变量的初始化</h1><blockquote>
+<p>声明指针变量之后，编译器会<strong>为指针变量本身分配一个内存空间</strong>，但是这个内存空间里面的值是<strong>随机</strong>的，也就是说，<strong>指针变量指向的值是随机的</strong>。这时一定不能去读写指针变量指向的地址，因为那个地址是随机地址，很可能会导致严重后果。</p>
+</blockquote>
+<p>因此我们需要让指针变量<strong>指向一个已经&#x3D;&#x3D;分配好的&#x3D;&#x3D;地址</strong>，再对这个地址进行赋值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p; <span class="hljs-comment">//此时P指向一个值不确定的内存地址</span><br><span class="hljs-type">int</span> i;<span class="hljs-comment">//声明变量 i，为其分配了一个内存空间，此时该空间内未储存任何的值</span><br><br>p = &amp;i; <span class="hljs-comment">//令 p 指向已分配的确定的内存地址</span><br>*p = <span class="hljs-number">13</span>; <span class="hljs-comment">//再为该地址赋值</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="5-指针的运算"><a href="#5-指针的运算" class="headerlink" title="5. 指针的运算"></a>5. 指针的运算</h1><blockquote>
+<p>指针本质上就是一个<strong>无符号整数</strong>，<strong>代表了内存地址</strong>。它可以进行运算，但是规则并不是整数运算的规则。</p>
+</blockquote>
+<h2 id="（1）指针与整数值的加减运算"><a href="#（1）指针与整数值的加减运算" class="headerlink" title="（1）指针与整数值的加减运算"></a>（1）指针与整数值的加减运算</h2><blockquote>
+<p>指针与整数值的运算，表示指针的移动。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">short</span>* j;<br>j = (<span class="hljs-type">short</span>*)<span class="hljs-number">0x1234</span>;<br>j = j + <span class="hljs-number">1</span>; <span class="hljs-comment">// 0x1236</span><br></code></pre></td></tr></table></figure>
+
+<p>上面示例中，<code>j</code>是一个指针，指向内存地址<code>0x1234</code>。由于<code>0x1234</code>本身是整数类型（<code>int</code>），跟<code>j</code>的类型（<code>short*</code>）并不兼容，所以强制使用类型投射，将<code>0x1234</code>转成<code>short*</code>。你可能以为<code>j + 1</code>等于<code>0x1235</code>，但正确答案是<code>0x1236</code>。原因是<code>j + 1</code>表示指针向内存地址的高位移动一个单位，而一个单位的<code>short</code>类型占据两个字节的宽度，所以相当于向高位移动两个字节。同样的，<code>j - 1</code>得到的结果是<code>0x1232</code>。</p>
+<p><strong>指针移动的单位</strong>，与指针指向的<strong>数据类型</strong>有关。<strong>数据类型占据多少个字节</strong>，每单位<strong>就移动多少个字节</strong>。</p>
 
                 
               </div>
@@ -283,13 +317,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Test/" class="print-no-link">#Test</a>
-      
-    </div>
-  
 </div>
 
 
@@ -298,8 +325,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello world</div>
-      <div>http://k-azv.github.io/2024/02/19/Hello world/</div>
+      <div></div>
+      <div>http://k-azv.github.io/2024/02/24/六、指针/</div>
     </div>
     <div class="license-meta">
       
@@ -311,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月19日</div>
+          <div>2024年2月24日</div>
         </div>
       
       
@@ -343,7 +370,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/24/%E5%85%AB%E3%80%81%E6%95%B0%E7%BB%84/" title="">
+                      <a href="/2024/02/24/%E4%B8%83%E3%80%81%E5%87%BD%E6%95%B0/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
@@ -352,6 +379,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/02/24/%E4%B9%9D%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

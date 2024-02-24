@@ -1,0 +1,684 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kazv">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 简介 函数是一段可以重复执行的代码。它可以接受不同的参数，完成对应的操作。下面的例子就是一个函数。  123int plus_one(int n) &amp;#123;  return n + 1;&amp;#125; 声明了一个函数 plus_one  声明函数的语法  返回值类型。函数声明时，首先需要给出返回值的类型如上例中 int plus_one，表明返回值为整数 参数。函数名后面的圆括号里面，需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k-azv.github.io">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E4%B8%83%E3%80%81%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="k-azv.github.io">
+<meta property="og:description" content="1. 简介 函数是一段可以重复执行的代码。它可以接受不同的参数，完成对应的操作。下面的例子就是一个函数。  123int plus_one(int n) &amp;#123;  return n + 1;&amp;#125; 声明了一个函数 plus_one  声明函数的语法  返回值类型。函数声明时，首先需要给出返回值的类型如上例中 int plus_one，表明返回值为整数 参数。函数名后面的圆括号里面，需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-24T05:10:08.157Z">
+<meta property="article:modified_time" content="2024-02-18T14:02:01.390Z">
+<meta property="article:author" content="kazv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>k-azv.github.io</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"k-azv.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kazv&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-24 13:10" pubdate>
+          2024年2月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p>函数是一段可以重复执行的代码。它可以接受不同的参数，完成对应的操作。下面的例子就是一个函数。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">plus_one</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>  <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>声明了一个函数 <code>plus_one</code> </p>
+<p>声明函数的语法</p>
+<ol>
+<li>返回值类型。函数声明时，首先需要给出返回值的类型<br>如上例中 <code>int plus_one</code>，表明返回值为整数</li>
+<li>参数。函数名后面的圆括号里面，需要声明参数的类型和参数名<br><code>int n</code></li>
+<li>函数体。函数体要写在大括号里面，<strong>后面（即大括号外面）不需要加分号</strong>，大括号可与函数名同行也可另起一行</li>
+<li><code>return</code> 语句。<code>return</code> 语句给出函数的返回值，程序<strong>运行到这一行，就会跳出函数体</strong>，结束函数的调用。如果函数没有<strong>返回值，可以省略 <code>return</code> 语句，或者写成 <code>return;</code></strong></li>
+</ol>
+<p>调用函数的方法同 [[..&#x2F;python&#x2F;一、基础知识&#x2F;8. 函数#8.1 定义函数|python]]</p>
+<p>函数只能声明在源码文件的<strong>顶层</strong>，不能声明在其他函数内部</p>
+<p>不返回值的函数，使用 <code>void</code> 关键字表示返回值的类型。没有参数的函数，声明时要用 <code>void</code> 关键字表示参数类型。（总之参数不能空着，也必须要声明一下）</p>
+<p>函数可以<strong>调用自身</strong>，这就叫做递归（recursion）</p>
+<h1 id="2-main"><a href="#2-main" class="headerlink" title="2. main()"></a>2. main()</h1><blockquote>
+<p>C 语言规定，<code>main()</code> 是程序的入口函数，即所有的程序<strong>一定要包含一个 <code>main()</code> 函数</strong>。程序<strong>总是从这个函数开始执行</strong>，如果没有该函数，程序就无法启动。其他函数都是通过它引入程序的。<br><code>main()</code> 的写法与其他函数一样，要给出返回值的类型和参数的类型</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面示例中，最后的 <code>return 0;</code> 表示函数结束运行，返回 <code>0</code>。<br>返回值 <code>0</code> 表示函数运行成功，如果<strong>返回其他非零整数，就表示运行失败</strong>，代码出了问题。系统根据**<code>main()</code> 的返回值，作为整个程序的返回值**，确定程序是否运行成功。<br>假设省略了 <code>return 0;</code> 编译器会自动加上，即 <code>main()</code> 的默认返回值为0<br>C 语言只会对 <code>main()</code> 函数默认添加返回值</p>
+<h1 id="3-参数的传值引用"><a href="#3-参数的传值引用" class="headerlink" title="3.参数的传值引用"></a>3.参数的传值引用</h1><blockquote>
+<p>如果函数的参数是一个变量，那么调用时，传入的是这个变量的值的拷贝，而不是变量本身。<br>因此，如果参数变量发生变化，最好把它<strong>作为返回值传出来</strong>。</p>
+</blockquote>
+<p>对应[[二、变量#2. 变量的声明|块作用域的特性]]，即代码块内的变量无法在代码块外读取，函数修改的变量只是原始变量的拷贝</p>
+<p>如果想要<strong>传入变量本身</strong>，只有一个办法，就是<strong>传入变量的地址</strong><br>即让代码块内的变量通过指针与外界沟通</p>
+<p>函数不要返回内部变量的指针，<code>return &amp;i；</code>,因为当函数结束运行时，内部变量就消失了，这时指向内部变量 <code>i</code> 的内存地址就是无效的</p>
+<h1 id="4-函数指针"><a href="#4-函数指针" class="headerlink" title="4. 函数指针"></a>4. 函数指针</h1><blockquote>
+<p>函数本身就是一段内存里面的代码，C 语言允许通过指针获取函数。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">print</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span> &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, a);<br>&#125;<br><span class="hljs-comment">/* int *a = &amp;x*/</span><br><span class="hljs-type">void</span> (*print_ptr)(<span class="hljs-type">int</span>) = &amp;print;<br><span class="hljs-comment">/*变量类型  *指针变量的名称 参数*/</span><br></code></pre></td></tr></table></figure>
+<p>上面示例中，变量 <code>print_ptr</code> 是一个函数指针，它指向函数 <code>print()</code> 的地址。函数 <code>print()</code> 的地址可以用 <code>&amp;print</code> 获得。<code>(*print_ptr)</code><strong>一定要写在圆括号</strong>里面，否则函数参数 <code>(int)</code> 的优先级高于 <code>*</code>，整个式子就会变成 <code>void* print_ptr(int)</code>。</p>
+<p>比较特殊的是，C 语言还规定，函数名本身就是指向函数代码的指针，通过函数名就能获取函数地址。也就是说，**<code>print</code> 和 <code>&amp;print</code> 是一回事。**<br>并且 <code>*print</code> 与 <code>print</code> 也等价<br>这种特性的一个应用是，如果一个函数的参数或返回值，也是一个函数，那么函数原型可以写成下面这样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">compute</span><span class="hljs-params">(<span class="hljs-type">int</span> (*myfunc)(<span class="hljs-type">int</span>), <span class="hljs-type">int</span>, <span class="hljs-type">int</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>上面示例可以清晰地表明，函数 <code>compute()</code> 的第一个参数也是一个函数。</p>
+<h1 id="5-函数原型"><a href="#5-函数原型" class="headerlink" title="5. 函数原型"></a>5. 函数原型</h1><blockquote>
+<p>前面说过，函数必须先声明，后使用。由于程序总是先运行 <code>main()</code> 函数，导致所有其他函数都必须在 <code>main()</code> 函数之前声明。<br>但是，**<code>main()</code> 是整个程序的入口，也是主要逻辑**，放在最前面比较好。另一方面，对于函数较多的程序，保证每个函数的顺序正确，会变得很麻烦。</p>
+</blockquote>
+<p>C 语言提供的解决方法是，只要在程序开头处给出函数原型，函数就可以<strong>先使用、后声明</strong>。所谓函数原型，就是提前告诉编译器，每个函数的返回类型和参数类型<br>函数原型必须<strong>以分号结尾</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">twice</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> &#123;<br>  <span class="hljs-keyword">return</span> twice(num);<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">twice</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> &#123; <span class="hljs-comment">//声明函数原型时可以带上变量</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * num;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="6-exit"><a href="#6-exit" class="headerlink" title="6. exit()"></a>6. exit()</h1><blockquote>
+<p><code>exit()</code> 函数用来终止整个程序的运行。一旦执行到该函数，程序就会立即结束。该函数的原型定义在头文件 <code>stdlib.h</code> 里面。<br><code>exit()</code> 可以<strong>向程序外部返回一个值</strong>，它的<strong>参数</strong>就是程序的返回值。一般来说，使用两个常量作为它的参数：**<code>EXIT_SUCCESS</code>（相当于 0）** 表示程序运行成功，**<code>EXIT_FAILURE</code>（相当于 1）表示程序异常中止**。这两个常数也是定义在 <code>stdlib.h</code> 里面。</p>
+</blockquote>
+<p>在 <code>main()</code> 函数里面，<code>exit()</code> 等价于使用 <code>return</code> 语句。其他函数使用 <code>exit()</code>，就是终止整个程序的运行，没有其他作用。<br>C 语言还提供了一个 <code>atexit()</code> 函数，用来<strong>登记 <code>exit()</code> 执行时额外执行的函数</strong>，用来做一些退出程序时的收尾工作。该函数的原型也是定义在头文件 <code>stdlib.h</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">atexit</span><span class="hljs-params">(<span class="hljs-type">void</span> (*func)(<span class="hljs-type">void</span>))</span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">int atexit(*print);</span><br><span class="hljs-comment">void (func)(void)&#123;</span><br><span class="hljs-comment">	……</span><br><span class="hljs-comment">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>atexit()</code> 的参数是一个函数指针。注意，<strong>它的参数函数不能接受参数</strong>，也不能有返回值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-type">void</span> <span class="hljs-title function_">print</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;something wrong!\n&quot;</span>);<br>&#125;<br><br>atexit(print);<br><span class="hljs-built_in">exit</span>(EXIT_FAILURE);<br></code></pre></td></tr></table></figure>
+
+<h1 id="函数说明符"><a href="#函数说明符" class="headerlink" title="函数说明符"></a>函数说明符</h1><p>C 语言提供了一些函数说明符，让函数用法更加明确</p>
+<h2 id="extern-说明符"><a href="#extern-说明符" class="headerlink" title="extern 说明符"></a>extern 说明符</h2><p>对于多文件的项目，源码文件会<strong>用到其他文件声明的函数</strong>。这时，当前文件里面，需要<strong>给出外部函数的原型</strong>，并用 <code>extern</code> 说明该函数的定义来自其他文件。</p>
+<h2 id="static-说明符"><a href="#static-说明符" class="headerlink" title="static 说明符"></a>static 说明符</h2><p>默认情况下，每次调用函数时，函数的内部变量都会重新初始化，不会保留上一次运行的值。<code>static</code> 说明符可以改变这种行为。<br><code>static</code> 用于<strong>函数内部声明变量</strong>时，表示该变量<strong>只需要初始化一次</strong>，不需要在每次调用时都进行初始化。也就是说，它的<strong>值在两次调用之间保持不变</strong>。(此时多次调用该函数，可以起到类似循环的效果)</p>
+<p>块作用域中，<code>static</code>声明的变量有默认值<code>0</code></p>
+<p><code>static</code> 可以用来修饰函数本身。<br>此时 <code>static</code> 关键字表示该函数只能在当前文件里使用</p>
+<p><code>static</code> 修饰的变量初始化时，<strong>只能赋值为常量</strong>，不能赋值为变量<br><code>static int x = i</code> 为错误范例，应将 <code>i</code> 替换为常量</p>
+<p><code>static</code> 也可以用在参数里面，修饰参数数组</p>
+<h2 id="const-说明符"><a href="#const-说明符" class="headerlink" title="const 说明符"></a>const 说明符</h2><p>函数参数里面的 <code>const</code> 说明符，表示函数内部不得修改该参数变量。<br>即使得声明变量时加上了 const 说明符的变量在函数内部为常量</p>
+<p>典型实例：<br>函数 <code>f()</code> 的参数是一个指针 <code>p</code>，函数内部可能会改掉它所指向的值 <code>*p</code>，从而影响到函数外部。因此，在指针参数前面加上 <code>const</code> 说明符，告诉编译器，函数内部不能修改该参数所指向的值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">f</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span>* p)</span> &#123;<br>  *p = <span class="hljs-number">0</span>; <span class="hljs-comment">// 修改无效</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>但是此种写法只限制了修改 p 指向的值（即只限定 <code>*p</code> 不能修改。），仍旧能修改其地址 <code>p = &amp;x</code>；同理，如果想限制修改 <code>p</code>，可以把 <code>const</code> 放在 <code>p</code> 前面（此时地址不能修改但是该地址对应的值可以被修改）。<br>而如果想同时限制修改 <code>p</code> 和 <code>*p</code>，需要使用两个 <code>const</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">f</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span>* <span class="hljs-type">const</span> p)</span> &#123;<br></code></pre></td></tr></table></figure>
+
+<h1 id="8-可变参数"><a href="#8-可变参数" class="headerlink" title="8. 可变参数"></a>8. 可变参数</h1><blockquote>
+<p>有些函数的<strong>参数数量是不确定的</strong>，声明函数的时候，可以使用省略号 <code>...</code> 表示可变数量的参数。<br>注意，<code>...</code> 符号必须放在<strong>参数序列的结尾</strong>，否则会报错。</p>
+</blockquote>
+<p><code>stdarg.h</code> 定义了一些宏，可以 [[头文件&#x2F;stdarg.h#操作可变参数|操作可变参数]]</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://k-azv.github.io/2024/02/24/七、函数/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kazv</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E4%B8%89%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E5%85%AD%E3%80%81%E6%8C%87%E9%92%88/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

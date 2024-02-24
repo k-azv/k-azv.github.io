@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kazv">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C 语言的程序是顺序执行，即先执行前面的语句，再执行后面的语句。开发者如果想要控制程序执行的流程，就必须使用流程控制的语法结构，主要是条件执行和循环执行。  1. if 语句 if 语句用于条件判断，满足条件时，就执行指定的语句。if (判断条件) 语句体  如 1if (expression) statement 如果表达式 expression 为真，则执行 statement判断条件外部必">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k-azv.github.io">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E5%9B%9B%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:site_name" content="k-azv.github.io">
+<meta property="og:description" content="C 语言的程序是顺序执行，即先执行前面的语句，再执行后面的语句。开发者如果想要控制程序执行的流程，就必须使用流程控制的语法结构，主要是条件执行和循环执行。  1. if 语句 if 语句用于条件判断，满足条件时，就执行指定的语句。if (判断条件) 语句体  如 1if (expression) statement 如果表达式 expression 为真，则执行 statement判断条件外部必">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-24T05:10:08.164Z">
+<meta property="article:modified_time" content="2024-02-17T11:14:23.000Z">
+<meta property="article:author" content="kazv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>k-azv.github.io</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"k-azv.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kazv&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-24 13:10" pubdate>
+          2024年2月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>C 语言的程序是顺序执行，即先执行前面的语句，再执行后面的语句。开发者如果想要控制程序执行的流程，就必须使用流程控制的语法结构，主要是条件执行和循环执行。</p>
+</blockquote>
+<h1 id="1-if-语句"><a href="#1-if-语句" class="headerlink" title="1. if 语句"></a>1. if 语句</h1><blockquote>
+<p><code>if</code> 语句用于条件判断，满足条件时，就执行指定的语句。<br><code>if (判断条件) 语句体</code></p>
+</blockquote>
+<p>如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (expression) statement<br></code></pre></td></tr></table></figure>
+<p>如果表达式 <code>expression</code> 为真，则执行 statement<br>判断条件<strong>外部必须有圆括号</strong></p>
+<p>语句体部分 <code>statement</code> 可以是一个语句，也可以是放在大括号里面的复合语句<br>对于只有一个语句的语句体，语句部分通常另起一行，<br>如果有多条语句，就需要把它们放在大括号里面，组成一个复合语句</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (line_num == MAX_LINES) &#123;<br>	line_num = <span class="hljs-number">0</span>;<br>	page_num++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>if</code> 语句可以带有 <code>else</code> 分支，指定条件不成立时（表达式 <code>expression</code> 的值为 <code>0</code>），所要执行的代码。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (i &gt; j)<br>	max = i;<br><span class="hljs-keyword">else</span><br>	max = j;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>else</code> 可以与另一个 <code>if</code> 语句连用，构成多重判断。<br>如果有多个 <code>if</code> 和 <code>else</code>，可以记住这样一条规则，<code>else</code> 总是跟最接近的 <code>if</code> 匹配。<br>为了提供代码的可读性，建议使用大括号，明确 <code>else</code> 匹配哪一个 <code>if</code></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (number &gt; <span class="hljs-number">6</span>) &#123;<br>  <span class="hljs-keyword">if</span> (number &lt; <span class="hljs-number">12</span>) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The number is more than 6, less than 12.\n&quot;</span>);<br>  &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;It is wrong number.\n&quot;</span>);<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">1. 如果 `number` 大于 `6` 且小于 `12`，则输出 &quot;The number is more than 6, less than 12.&quot;。</span><br><span class="hljs-comment">2. 如果 `number` 不满足以上条件，则输出 &quot;It is wrong number.&quot;。</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="2-三元运算符"><a href="#2-三元运算符" class="headerlink" title="2. 三元运算符 ?:"></a>2. 三元运算符 ?:</h1><blockquote>
+<p>C 语言有一个三元表达式 <code>?:</code>，可以用作 <code>if...else</code> 的简写形式。</p>
+<blockquote>
+<p><code>&lt;expression1&gt; ? &lt;expression2&gt; : &lt;expression3&gt;</code><br>这个操作符的含义是，表达式 <code>expression1</code> 如果为 <code>true</code>（非0值），就执行 <code>expression2</code>，否则执行 <code>expression3</code>。</p>
+</blockquote>
+</blockquote>
+<h1 id="3-switch-语句"><a href="#3-switch-语句" class="headerlink" title="3. switch 语句"></a>3. switch 语句</h1><blockquote>
+<p>switch 语句是一种特殊形式的 if… else 结构，用于判断条件有多个结果的情况。它把多重的 <code>else if</code> 改成更易用、可读性更好的形式。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">switch</span> (expression) &#123;<br>  <span class="hljs-keyword">case</span> value1: statement<br>  <span class="hljs-keyword">case</span> value2: statement<br>  <span class="hljs-keyword">default</span>: statement<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>上面代码中，根据表达式 <code>expression</code> 不同的值，执行相应的 <code>case</code> 分支。如果找不到对应的值，就执行 <code>default</code> 分支。</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">switch</span> (grade) &#123;<br>  <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;False&quot;</span>);<br>    <span class="hljs-keyword">break</span>;<br>  <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;True&quot;</span>);<br>    <span class="hljs-keyword">break</span>;<br>  <span class="hljs-keyword">default</span>:<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Illegal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>根据变量 <code>grade</code> 不同的值，会执行不同的 <code>case</code> 分支。如果等于 <code>0</code>，执行 <code>case 0</code> 的部分；如果等于 <code>1</code>，执行 <code>case 1</code> 的部分；否则，执行 <code>default</code> 的部分。<code>default</code> 表示处理以上所有 <code>case</code> 都不匹配的情况。</p>
+<blockquote>
+<p>每个 <code>case</code> 语句体的结尾，都应该有一个 <code>break</code> 语句，作用是跳出整个 <code>switch</code> 结构，不再往下执行。如果缺少 <code>break</code>，就会导致继续执行下一个 <code>case</code> 或 <code>default</code> 分支。<br><code>case</code> 后面的语句体，不用放在大括号里面，这也是为什么需要 <code>break</code> 的原因。<br><code>default</code> 分支用来处理前面的 case 都不匹配的情况，最好放在所有 case 的后面，这样就不用写 <code>break</code> 语句。这个分支是<strong>可选</strong>的，如果没有该分支，<strong>遇到所有的 case 都不匹配的情况，就会直接跳出整个 switch 代码块</strong>。</p>
+</blockquote>
+<h1 id="4-while-语句"><a href="#4-while-语句" class="headerlink" title="4. while 语句"></a>4. while 语句</h1><p>^0150fb</p>
+<blockquote>
+<p><code>while</code> 语句用于循环结构，满足条件时，不断执行循环体。<br>如果循环体有多个语句，就需要使用大括号将这些语句组合在一起。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">while</span> (expression)<br>	statement<br><br><span class="hljs-title function_">while</span> <span class="hljs-params">(expression)</span> &#123;<br>	statement;<br>	statement;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>expression</code> 为非零值（表示真），就会执行 <code>statement</code> 语句，然后再次判断 <code>expression</code> 是否为零；如果 <code>expression</code> 为零（表示伪）就跳出循环，不再执行循环体</p>
+<h1 id="6-do…while-结构"><a href="#6-do…while-结构" class="headerlink" title="6. do…while 结构"></a>6. do…while 结构</h1><blockquote>
+<p><code>do...while</code> 结构是 <code>while</code> 的变体，它会先执行一次循环体，然后再判断是否满足条件。如果满足的话，就继续执行循环体，否则跳出循环。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">do</span> statement<br><span class="hljs-title function_">while</span> <span class="hljs-params">(expression)</span>;<br></code></pre></td></tr></table></figure>
+<p>不管条件 <code>expression</code> 是否成立，循环体 <code>statement</code><strong>至少会执行一次</strong>。每次 <code>statement</code> 执行完毕，就会判断一次 <code>expression</code>，决定是否结束循环。<br>与 [[#^0150fb|while 语句]]相比，似乎是进行了一次倒置，因此 do-while 必定会执行一次 do </p>
+<h1 id="6-for-语句"><a href="#6-for-语句" class="headerlink" title="6.for 语句"></a>6.for 语句</h1><blockquote>
+<p><code>for</code> 语句是最常用的循环结构，通常用于精确控制循环次数。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (initialization; continuation; action)<br>  statement;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>for</code>语句的条件部分（即圆括号里面的部分）有三个表达式。</p>
+<ul>
+<li><code>initialization</code>：初始化表达式，用于初始化循环变量，<strong>只执行一次</strong>。<ul>
+<li>影响循环是否进行的<strong>核心</strong></li>
+</ul>
+</li>
+<li><code>continuation</code>：判断表达式，&#x3D;&#x3D;<strong>只要为 <code>true</code>，就会不断执行</strong>&#x3D;&#x3D;循环体。<ul>
+<li>判断循环是否进行的一个<strong>限定条件</strong></li>
+</ul>
+</li>
+<li><code>action</code>：循环变量处理表达式，&#x3D;&#x3D;<strong>每轮循环结束后执行</strong>&#x3D;&#x3D;，使得循环变量发生变化。<ul>
+<li>修改变量，与循环变量共同&#x3D;&#x3D;<strong>决定循环执行的次数</strong>&#x3D;&#x3D;<br>循环体部分的 <code>statement</code> 可以是一条语句，也可以是放在大括号里面的复合语句。</li>
+</ul>
+</li>
+</ul>
+<p>示例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">10</span>; i &gt; <span class="hljs-number">0</span>; i--)<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;i is %d\n&quot;</span>, i);<br></code></pre></td></tr></table></figure>
+
+<p>循环变量 <code>i</code> 在 <code>for</code> 的第一个表达式里面声明，该变量只用于本次循环。离开循环体之后，就会失效<br>当 <code>i &gt; 0</code> 为 false 时则循环停止<br>每次循环结束后 i 自减 1 </p>
+<blockquote>
+<p>条件部分的三个表达式，每一个都可以有多个语句，语句与语句之间使用逗号分隔。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> i, j;<br><span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, j = <span class="hljs-number">999</span>; i &lt; <span class="hljs-number">10</span>; i++, j--) &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d, %d\n&quot;</span>, i, j);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>for</code> 的三个表达式都不是必需的，甚至可以全部省略，这会形成无限循环</p>
+</blockquote>
+<h1 id="7-break-语句"><a href="#7-break-语句" class="headerlink" title="7. break 语句"></a>7. break 语句</h1><blockquote>
+<p><code>break</code> 语句有两种用法。一种是与 <code>switch</code> 语句配套使用，用来中断某个分支的执行，这种用法前面已经介绍过了。另一种用法是在循环体内部跳出循环，不再进行后面的循环了。<br>注意，<code>break</code> 命令<strong>只能跳出循环体和 <code>switch</code> 结构</strong>，不能跳出 <code>if</code> 结构。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">1</span>) &#123;<br>  <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">2</span>) <span class="hljs-keyword">break</span>; <span class="hljs-comment">// 无效</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;hello\n&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<code>break</code> 语句是无效的，因为它不能跳出外层的 <code>if</code> 结构。</p>
+<h1 id="8-continue-语句"><a href="#8-continue-语句" class="headerlink" title="8.continue 语句"></a>8.continue 语句</h1><blockquote>
+<p><code>continue</code> 语句用于在循环体内部终止本轮循环，进入下一轮循环。只要遇到 <code>continue</code> 语句，循环体内部后面的语句就不执行了，回到循环体的头部，开始执行下一轮循环。</p>
+</blockquote>
+<p>同 [[..&#x2F;python&#x2F;一、基础知识&#x2F;7. 用户输入和 while 循环#使用 continue 跳过循环|python]]</p>
+<h1 id="9-goto-语句"><a href="#9-goto-语句" class="headerlink" title="9.goto 语句"></a>9.goto 语句</h1><blockquote>
+<p>goto 语句用于跳到指定的标签名。这会破坏结构化编程，&#x3D;&#x3D;建议不要轻易使用&#x3D;&#x3D;</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> ch;<br><br>top: ch = getchar();<br><br><span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;q&#x27;</span>)<br>	<span class="hljs-keyword">goto</span> top;<br></code></pre></td></tr></table></figure>
+
+<p>上面示例中，<code>top</code> 是一个标签名，可以放在正常语句的前面，相当于为这行语句做了一个标记。程序执行到 <code>goto</code> 语句，就会跳转到它指定的标签名。</p>
+<p>goto 的一个主要用法是<strong>跳出多层循环</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span>(...) &#123;<br>  <span class="hljs-keyword">for</span> (...) &#123;<br>    <span class="hljs-keyword">while</span> (...) &#123;<br>      <span class="hljs-keyword">do</span> &#123;<br>        <span class="hljs-keyword">if</span> (some_error_condition)<br>          <span class="hljs-keyword">goto</span> bail;    <br>      &#125; <span class="hljs-keyword">while</span>(...);<br>    &#125;<br>  &#125;<br>&#125;<br>    <br>bail:<br><span class="hljs-comment">// ... ...</span><br></code></pre></td></tr></table></figure>
+<p>上面代码有很复杂的嵌套循环，不使用 goto 的话，想要完全跳出所有循环，写起来很麻烦。</p>
+<p>goto 的另一个用途是<strong>提早结束多重判断</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (do_something() == ERR)<br>  <span class="hljs-keyword">goto</span> error;<br><span class="hljs-keyword">if</span> (do_something2() == ERR)<br>  <span class="hljs-keyword">goto</span> error;<br><span class="hljs-keyword">if</span> (do_something3() == ERR)<br>  <span class="hljs-keyword">goto</span> error;<br><span class="hljs-keyword">if</span> (do_something4() == ERR)<br>  <span class="hljs-keyword">goto</span> error;<br></code></pre></td></tr></table></figure>
+<p>上面示例有四个判断，只要有一个发现错误，就使用 goto 跳过后面的判断（因为直接跳回指定的标签了）。<br>注意，goto &#x3D;&#x3D;只能在同一个函数之中跳转&#x3D;&#x3D;，并不能跳转到其他函数。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://k-azv.github.io/2024/02/24/四、流程控制/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kazv</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E4%BA%94%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E4%B8%89%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
