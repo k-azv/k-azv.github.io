@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kazv">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 简介 C 语言提供了 struct 关键字，允许自定义复合数据类型，将不同类型的值组合在一起。struct 结构很大程度上提供了对象和 [[..&#x2F;python&#x2F;一、基础知识&#x2F;9. 类|类]]的功能。无论是自定义数据类型还是在声明该类型的变量时，struct 关键字一定要写  实例 1234struct fraction &amp;#123;  int numerator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="struct 结构">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/11.struct%20%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="k-azv.github.io">
+<meta property="og:description" content="1. 简介 C 语言提供了 struct 关键字，允许自定义复合数据类型，将不同类型的值组合在一起。struct 结构很大程度上提供了对象和 [[..&#x2F;python&#x2F;一、基础知识&#x2F;9. 类|类]]的功能。无论是自定义数据类型还是在声明该类型的变量时，struct 关键字一定要写  实例 1234struct fraction &amp;#123;  int numerator">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-24T03:45:14.000Z">
+<meta property="article:modified_time" content="2024-02-25T14:18:17.350Z">
+<meta property="article:author" content="kazv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>struct 结构 - k-azv.github.io</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"k-azv.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kazv&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="struct 结构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-24 11:45" pubdate>
+          2024年2月24日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">struct 结构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p>C 语言提供了 <code>struct</code> 关键字，允许自定义复合数据类型，将不同类型的值组合在一起。struct 结构很大程度上提供了对象和 [[..&#x2F;python&#x2F;一、基础知识&#x2F;9. 类|类]]的功能。<br>无论是自定义数据类型还是在声明该类型的变量时，<code>struct</code> 关键字<strong>一定要写</strong></p>
+</blockquote>
+<p>实例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> &#123;</span><br>  <span class="hljs-type">int</span> numerator;<br>  <span class="hljs-type">int</span> denominator;<br>&#125;; <span class="hljs-comment">//分号不能省略</span><br></code></pre></td></tr></table></figure>
+<p>实例定义了一个分数的数据类型 <code>struct fraction</code>，包含两个属性 <code>numerator</code> 和 <code>denominator</code>。<br>作为一个自定义的数据类型，<strong>类型名&#x3D;&#x3D;必须&#x3D;&#x3D;要包括 <code>struct</code> 关键字</strong>，且 <code>struct</code> 语句<strong>结尾的分号不能省略</strong>（函数的末尾并未添加），否则很容易产生错误。 ^73a4bb</p>
+<p>定义了新的数据类型以后，就可以声明该类型的变量，这<strong>与声明其他类型变量的写法是一样的</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//声明了数据类型为 struct fraction 的变量 f1，即声明变量（不需要提供具体值）</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> <span class="hljs-title">f1</span>;</span> <br><span class="hljs-comment">//为变量的各个属性赋值，即初始化变量</span><br>f1.numerator = <span class="hljs-number">22</span>; <span class="hljs-comment">//为 numerator 赋值</span><br>f1.denominator = <span class="hljs-number">7</span>;<br></code></pre></td></tr></table></figure>
+
+<p>^22ce67</p>
+<p>struct 结构的<strong>属性通过点（<code>.</code>）来表示</strong>，比如<code>numerator</code>属性要写成<code>f1.numerator</code>。</p>
+<p>也可以<strong>使用大括号</strong>，<strong>一次性</strong>对 struct 结构的<strong>所有属性赋值</strong>，同时，<strong>顺序</strong>应是<strong>对应</strong>的，初始化时的属性<br>初始化的属性<strong>少于</strong>声明时的属性，这时<strong>剩下的那些属性</strong>都会**初始化为<code>0</code>**。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> &#123;</span><br>  <span class="hljs-type">char</span>* name;<br>  <span class="hljs-type">float</span> price;<br>  <span class="hljs-type">int</span> speed;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> <span class="hljs-title">saturn</span> =</span> &#123;<span class="hljs-string">&quot;Saturn SL/2&quot;</span>, <span class="hljs-number">16000.99</span>, <span class="hljs-number">175</span>&#125;; <span class="hljs-comment">//一次性完成了赋值，且免于标明属性</span><br><span class="hljs-comment">//声明了变量 saturn 的类型</span><br></code></pre></td></tr></table></figure>
+
+<p>声明变量<strong>之后</strong>，可以修改某个属性的值，直接[[#^22ce67|再赋一次值]]即可<br>初始化的属性少于声明时的属性，这时<strong>剩下的那些属性都会初始化为0</strong>。<br>[[杂项&#x2F;初始化与声明|初始化与声明]]</p>
+<p>struct 的数据类型声明语句与变量的声明语句，<strong>可以合并</strong>为一个语句, 这也是为什么 struct 语句的末尾 [[#^73a4bb|一定要加上分号]] 的原因</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span> &#123;</span><br>  <span class="hljs-type">char</span> title[<span class="hljs-number">500</span>];<br>  <span class="hljs-type">char</span> author[<span class="hljs-number">100</span>];<br>  <span class="hljs-type">float</span> value;<br>&#125; b1; <br><span class="hljs-comment">/*</span><br><span class="hljs-comment">等效于</span><br><span class="hljs-comment">struct book&#123;</span><br><span class="hljs-comment">	char title[500];</span><br><span class="hljs-comment">	char author[100];</span><br><span class="hljs-comment">	float value;</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">struct book b1;</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>但是<strong>无论如何</strong>，都需要<strong>单独</strong>为变量中的属性赋值</p>
+<p><code>typedef</code> 命令可以为 struct 结构<strong>指定一个别名</strong>，这样使用起来更简洁，类似于 python 中的 [[..&#x2F;python&#x2F;一、基础知识&#x2F;8. 函数#8.6 在模块中储存函数|as 函数]]</p>
+<p>指针变量也可以指向<code>struct</code>结构。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span> &#123;</span><br>  <span class="hljs-type">char</span> title[<span class="hljs-number">500</span>];<br>  <span class="hljs-type">char</span> author[<span class="hljs-number">100</span>];<br>  <span class="hljs-type">float</span> value;<br>&#125;* b1; <span class="hljs-comment">//b1指向的数据是`struct book`类型的实例。</span><br></code></pre></td></tr></table></figure>
+
+<p>struct 结构<strong>也可以作为数组成员</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> <span class="hljs-title">numbers</span>[1000];</span><br><br>numbers[<span class="hljs-number">0</span>].numerator = <span class="hljs-number">22</span>;<br>numbers[<span class="hljs-number">0</span>].denominator = <span class="hljs-number">7</span>;<br></code></pre></td></tr></table></figure>
+<p>上面示例声明了一个有1000个成员的数组 <code>numbers</code>，<strong>每个成员都是自定义类型 <code>fraction</code> 的实例</strong>。</p>
+<p>struct 结构占用的<strong>存储空间</strong>，是<strong>占用空间最大的那个属性</strong>所占空间的<strong>倍数</strong>，多出来的存储空间，都采用空位填充，以增加读写效率。</p>
+<h1 id="2-struct-的复制"><a href="#2-struct-的复制" class="headerlink" title="2. struct 的复制"></a>2. struct 的复制</h1><blockquote>
+<p>struct 变量可以使用<strong>赋值运算符（<code>=</code>）</strong>，复制给另一个变量，这时会生成一个全新的副本。系统会分配一块新的内存空间，与原来的完全相同<br><strong>不同类型</strong>的 struct 变量无法互相赋值。<br>，无法用比较运算符（比如<code>==</code>和<code>!=</code>）比较两个数据结构是否相等或不等。</p>
+</blockquote>
+<p>有别于[[八、数组#7. 数组的复制|数组的复制]]<br>赋值运算符（<code>=</code>）可以将 struct 结构每个属性的值，<strong>一模一样复制一份</strong>，拷贝给另一个 struct 变量，而数组只会<strong>共享地址</strong></p>
+<p>此时复制之后的副本和原始数据可以<strong>相互独立存在</strong><br>但是如果 struct 变量内部的属性<strong>存在指针</strong>，则不行，因为此时副本与原始数据均含有一个指向同一地址的指针</p>
+<h1 id="3-struct-指针"><a href="#3-struct-指针" class="headerlink" title="3. struct 指针"></a>3. struct 指针</h1><blockquote>
+<p>如果将 struct 变量传入函数，<strong>函数内部得到的</strong>是一个<strong>原始值的副本</strong>。<br>即将 struct 变量传入函数后，函数对变量的操作无法直接被读取</p>
+</blockquote>
+<p>用函数指针解决这一问题并提高效率<br>参考[[六、指针]]、[[二、变量#4.变量的作用域|变量的作用域]]</p>
+<p>struct 指针传入函数的写法如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">happy</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> turtle* t)</span> &#123; <span class="hljs-comment">//struct turtle* t的是地址</span><br>&#125;<br>happy(&amp;myTurtle); <span class="hljs-comment">//因此填入函数内的参数也应转换为地址</span><br></code></pre></td></tr></table></figure>
+<p>上面代码中，<code>t</code>是 struct 结构的指针，<strong>调用函数时传入的是指针</strong>。&#x3D;&#x3D;<strong>struct 类型跟数组不一样，类型标识符本身并不是指针</strong>&#x3D;&#x3D;，所以传入时，指针必须写成<code>&amp;myTurtle</code>。</p>
+<p>函数内部也<strong>必须使用 <code>(*t).age</code></strong> 的写法，从指针拿到 struct 结构本身。</p>
+<p><code>(*t).age</code> 这样的写法很麻烦。C 语言就引入了一个新的<strong>箭头运算符（<code>-&gt;</code>）</strong>，可以从 struct 指针上<strong>直接获取属性</strong>，大大增强了代码的可读性。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">happy</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> turtle* t)</span> &#123;<br>  t-&gt;age = t-&gt;age + <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>&#x3D;&#x3D;对于 struct 变量名，使用点运算符（<code>.</code>）获取属性；对于 struct 变量指针，使用箭头运算符（<code>-&gt;</code>）获取属性。&#x3D;&#x3D;</p>
+<h1 id="4-struct-的嵌套"><a href="#4-struct-的嵌套" class="headerlink" title="4. struct 的嵌套"></a>4. struct 的嵌套</h1><blockquote>
+<p>struct 结构的成员可以是另一个 struct 结构。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">species</span> &#123;</span><br>  <span class="hljs-type">char</span>* name;<br>  <span class="hljs-type">int</span> kinds;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> &#123;</span><br>  <span class="hljs-type">char</span>* name;<br>  <span class="hljs-type">int</span> age;<br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">species</span> <span class="hljs-title">breed</span>;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>此处数据类型 struct fish 中的一个属性嵌套了另一个数据类型 struct species<br><code>fish</code>的属性<code>breed</code>是另一个 struct 结构<code>species</code>。<br>起到了类似 [[..&#x2F;python&#x2F;一、基础知识&#x2F;9. 类#9.3 继承|继承类]] 的作用</p>
+<p>此时的赋值有多种写法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 写法一</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> &#123;<span class="hljs-string">&quot;shark&quot;</span>, <span class="hljs-number">9</span>, &#123;<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>&#125;&#125;;<br><br><span class="hljs-comment">// 写法二</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">species</span> <span class="hljs-title">myBreed</span> =</span> &#123;<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> &#123;<span class="hljs-string">&quot;shark&quot;</span>, <span class="hljs-number">9</span>, myBreed&#125;;<br><br><span class="hljs-comment">// 写法三</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> &#123;<br>  .name=<span class="hljs-string">&quot;shark&quot;</span>,<br>  .age=<span class="hljs-number">9</span>,<br>  .breed=&#123;<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>&#125;<br>&#125;;<br><br><span class="hljs-comment">// 写法四，将嵌套的数据类型拆开与其他属性一并赋值</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> &#123;<br>  .name=<span class="hljs-string">&quot;shark&quot;</span>,<br>  .age=<span class="hljs-number">9</span>,<br>  .breed.name=<span class="hljs-string">&quot;Selachimorpha&quot;</span>,<br>  .breed.kinds=<span class="hljs-number">500</span><br>&#125;;<br><br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Shark&#x27;s species is %s&quot;</span>, shark.breed.name);<br></code></pre></td></tr></table></figure>
+
+<p>另外，引用 <code>breed</code> 属性的内部属性，要使用两次点运算符（<code>shark.breed.name</code>）。</p>
+<p>struct 结构内部不仅可以引用其他结构，还可以自我引用，即结构内部引用当前结构。比如，链表结构的节点就可以写成下面这样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> &#123;</span><br>  <span class="hljs-type">int</span> data;<br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">next</span>;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><code>next</code> 就是指向另一个 node 实例的指针</p>
+<h1 id="5-位字段"><a href="#5-位字段" class="headerlink" title="5. 位字段"></a>5. 位字段</h1><blockquote>
+<p>struct 还可以用来<strong>定义二进制位组成的数据结构，称为“位字段”</strong>（bit field），这对于操作底层的二进制数据非常有用。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> ab:<span class="hljs-number">1</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> cd:<span class="hljs-number">1</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> ef:<span class="hljs-number">1</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> gh:<span class="hljs-number">1</span>;<br>&#125; synth;<br><br>synth.ab = <span class="hljs-number">0</span>;<br>synth.cd = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<strong>每个属性后面的<code>:1</code><strong>，表示指定这些属性</strong>只占用一个二进制位</strong>，所以这个数据结构一共是4个二进制位。</p>
+<p>注意，<strong>定义二进制位时</strong>，结构内部的<strong>各个属性只能是整数类型</strong>。</p>
+<p>实际存储的时候，C 语言会按照<code>int</code>类型占用的字节数，存储一个位字段结构。如果有<strong>剩余的二进制位</strong>，可以<strong>使用未命名属性，填满那些位</strong>。也可以使用<strong>宽度为0的属性，表示占满</strong>当前字节剩余的二进制位，迫使下一个属性存储在下一个字节。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> field1 : <span class="hljs-number">1</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>        : <span class="hljs-number">2</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> field2 : <span class="hljs-number">1</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>        : <span class="hljs-number">0</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> field3 : <span class="hljs-number">1</span>;<br>&#125; stuff;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<code>stuff.field1</code> 与 <code>stuff.field2</code> 之间，有一个<strong>宽度为两个二进制位的未命名属性</strong>。<code>stuff.field3</code> 将存储在下一个字节（因为 int 类型占两个二进制位）。</p>
+<h1 id="6-弹性数组成员"><a href="#6-弹性数组成员" class="headerlink" title="6. 弹性数组成员"></a>6. 弹性数组成员</h1><p>如果不能事先确定数组成员的数量时，可以定义一个 struct 结构。<br>能够极大的节省空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">vstring</span> &#123;</span><br>  <span class="hljs-type">int</span> len;<br>  <span class="hljs-type">char</span> chars[];<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<code>struct vstring</code>结构有两个属性。<code>len</code>属性用来记录数组<code>chars</code>的长度，<code>chars</code>属性是一个数组，但是没有给出成员数量。</p>
+<p><code>chars</code> 数组到底有多少个成员，可以<strong>在为 <code>vstring</code> 分配内存时确定。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">vstring</span>* <span class="hljs-title">str</span> =</span> <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> vstring) + n * <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">char</span>));<br>str-&gt;len = n;<br></code></pre></td></tr></table></figure>
+<p>分配的内存是 struct vstring 所占内存加上 n 个 char 数组中的成员，即 n 为数组成员数，再使用 len 用于记录成员数  </p>
+<p>弹性数组成员有一些专门的规则。</p>
+<ul>
+<li>首先，弹性成员的数组，<strong>必须是 struct 结构的最后一个属性</strong>。</li>
+<li>另外，除了弹性数组成员，struct 结构必须<strong>至少还有一个其他属性</strong>。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">C</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>struct 结构</div>
+      <div>http://k-azv.github.io/2024/02/24/11.struct 结构/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kazv</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/24/10.%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="10.内存管理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">10.内存管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/24/2.%20%E5%8F%98%E9%87%8F/" title="2.变量">
+                        <span class="hidden-mobile">2.变量</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
