@@ -1,0 +1,828 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kazv">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 简介 C 语言没有单独的字符串类型，字符串被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组，即 char 类型的数组。比如，字符串“Hello”是当作数组 &amp;#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&amp;#125; 处理的。 编译器会给数组分配一段连续内存，所有字符储存在相邻的内存单元之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.字符串">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E4%B9%9D%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
+<meta property="og:site_name" content="k-azv.github.io">
+<meta property="og:description" content="1. 简介 C 语言没有单独的字符串类型，字符串被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组，即 char 类型的数组。比如，字符串“Hello”是当作数组 &amp;#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&amp;#125; 处理的。 编译器会给数组分配一段连续内存，所有字符储存在相邻的内存单元之">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-24T03:45:14.000Z">
+<meta property="article:modified_time" content="2024-02-25T10:35:29.183Z">
+<meta property="article:author" content="kazv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>9.字符串 - k-azv.github.io</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"k-azv.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kazv&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="9.字符串"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-24 11:45" pubdate>
+          2024年2月24日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">9.字符串</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p>C 语言<strong>没有单独的字符串类型</strong>，字符串<strong>被当作&#x3D;&#x3D;字符&#x3D;&#x3D;数组</strong>，<strong>即 <code>char</code> 类型的数组</strong>。比如，字符串“Hello”是当作数组 <code>&#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;&#125;</code> 处理的。</p>
+<p>编译器会给数组分配一段连续内存，<strong>所有字符储存在相邻的内存单元之中</strong>。在<strong>字符串结尾，C 语言会自动添加一个全是二进制 <code>0</code> 的字节</strong>，<strong>写作 <code>\0</code> 字符</strong>，表示<strong>字符串结束</strong>。字符 <code>\0</code> 不同于字符 <code>0</code>，两者的 ASCII 码不同，前者的是0（二进制形式 <code>00000000</code>）。所以，字符串“Hello”实际储存的数组是 <code>&#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;\0&#39;&#125;</code>。</p>
+<p><strong>所有字符串的最后一个字符，都是 <code>\0</code><strong>。这样做的好处是，</strong>C 语言不需要知道字符串的长度，就可以读取内存里面的字符串</strong>，只要发现有一个字符是 <code>\0</code>，那么就知道字符串结束了。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> localString[<span class="hljs-number">10</span>];<br></code></pre></td></tr></table></figure>
+<p>上面示例声明了一个10个成员的字符数组，可以当作字符串。由于必须留一个位置给 <code>\0</code>，所以<strong>最多只能容纳9个字符的字符串</strong>。</p>
+<p>&#x3D;&#x3D;<strong>双引号之中</strong>的字符，会被<strong>自动视为字符数组</strong>。&#x3D;&#x3D;</p>
+<p>双引号里面是字符串，单引号里面是字符（[[..&#x2F;python&#x2F;一、基础知识&#x2F;2.变量和简单的数据类型|python]] 中，英文引号引起的都是字符串）[[杂项&#x2F;字符与字符串#字符与字符串的对比|字符与字符串]] #C语言与python的区别 </p>
+<p>如果字符串<strong>内部包含双引号</strong>，则该双引号需要&#x3D;&#x3D;使用反斜杠转义&#x3D;&#x3D;。</p>
+<p>C 语言允许合并多个字符串字面量，只要这些<strong>字符串之间没有间隔</strong>，或者<strong>只有空格</strong>，C 语言会将它们自动合并。效果类似 python 的 [[..&#x2F;python&#x2F;一、基础知识&#x2F;2.变量和简单的数据类型#2.3.2 f-字符串|f 字符串]] #C语言与python的区别 </p>
+<h1 id="2-字符串变量的声明"><a href="#2-字符串变量的声明" class="headerlink" title="2. 字符串变量的声明"></a>2. 字符串变量的声明</h1><blockquote>
+<p>字符串变量可以<strong>声明成一个字符数组</strong>，也可以<strong>声明成一个指针</strong>，指向字符数组。</p>
+</blockquote>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs abnf">// 写法一<br>char s[<span class="hljs-number">14</span>] <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, world!&quot;</span><span class="hljs-comment">;</span><br><br>// 写法二<br>char* s <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, world!&quot;</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>上面两种写法都声明了一个字符串变量 <code>s</code>。如果采用第一种写法，由于字符数组的长度可以让编译器自动计算，所以声明时可以省略字符数组的长度</p>
+<p><strong>字符数组</strong>的<strong>长度</strong>，可以<strong>大于</strong>字符串的<strong>实际长度</strong>，但是<strong>不能小于</strong>字符串的<strong>实际长度</strong><br>空出来的位置会被<strong>初始化为 <code>\0</code></strong></p>
+<p><strong>字符指针和字符数组</strong>，这两种声明字符串变量的<strong>写法基本是等价的</strong>，但是有<strong>两个差异</strong>。</p>
+<ol>
+<li><strong>指针指向的字符串</strong>，在 C 语言内部<strong>被当作常量</strong>，<strong>不能修改</strong>字符串<strong>本身</strong><ol>
+<li>声明为指针时，系统会将字符串的字面量保存再内存的<strong>常量区</strong><br>字符串<strong>声明为指针后不得修改</strong>，可以在声明时<strong>使用<code>const</code>说明符</strong>，保证该字符串<strong>是只读的</strong>。</li>
+<li>声明为数组时，编译器会为数组<strong>单独分配一段内存</strong></li>
+</ol>
+</li>
+<li><strong>指针</strong>变量<strong>可以指向其它字符串</strong>。<ol>
+<li>字符指针可以指向另一个字符串。</li>
+<li>字符数组变量不能指向另一个字符串。<br>字符数组的<strong>数组名</strong>，<strong>总是</strong>指向<strong>初始化时的字符串地址</strong>，不能修改。<br>（字符数组的变量名，跟所指向的数组是<strong>绑定</strong>的，不能指向另一个地址）</li>
+<li><strong>数组变量</strong>是一个<strong>不可修改的左值</strong>，即不能用赋值运算符为它重新赋值。<br>想要重新赋值，必须使用 C 语言原生提供的 <code>strcpy()</code> 函数，通过字符串拷贝完成赋值。数组变量的<strong>地址还是不变的</strong>，即 <code>strcpy()</code> 只是<strong>在原地址写入新的字符串</strong>，而不是让数组变量指向新的地址。</li>
+</ol>
+</li>
+</ol>
+<h1 id="3-strlen"><a href="#3-strlen" class="headerlink" title="3. strlen()"></a>3. <code>strlen()</code></h1><blockquote>
+<p><code>strlen()</code> 函数<strong>返回字符串的字节长度</strong>，**不包括末尾的空字符 <code>\0</code>**。<br><code>strlen()</code>的原型在标准库的<code>string.h</code>文件中定义，使用时需要加载头文件<code>string.h</code>。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// string.h</span><br><span class="hljs-type">size_t</span> <span class="hljs-title function_">strlen</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* s)</span>;<br></code></pre></td></tr></table></figure>
+<p>它的<strong>参数是字符串变量</strong>，返回的是 <code>size_t</code> 类型的无符号整数，除非是极长的字符串，一般情况下当作 <code>int</code> 类型处理即可</p>
+<p>字符串长度（<code>strlen()</code>）与字符串变量长度（<code>sizeof()</code>），是两个不同的概念。<br>[[五、数据类型#8. sizeof 运算符|sizeof()]]</p>
+<h1 id="4-strcpy"><a href="#4-strcpy" class="headerlink" title="4. strcpy()"></a>4. strcpy()</h1><blockquote>
+<p>字符串的<strong>复制不能使用赋值运算符</strong>，直接将一个字符串赋值给字符数组变量。</p>
+<blockquote>
+<p>数组的<strong>变量名是一个固定的地址</strong>，不能修改，使其指向另一个地址。</p>
+<p>如果是<strong>字符指针</strong>，赋值运算符（<code>=</code>）只是<strong>将一个指针的地址</strong>&#x3D;&#x3D;复制&#x3D;&#x3D;给另一个指针，而不是复制字符串。<strong>此时两个指针变量指向的时同一字符串</strong>，即<strong>内存中</strong>只有一份字符串，并非事实意义上的复制</p>
+</blockquote>
+</blockquote>
+<p><code>strcpy()</code>函数，用于将一个字符串的<strong>内容复制</strong>到另一个字符串，相当于字符串赋值。该函数的原型定义在<code>string.h</code>头文件里面。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-built_in">strcpy</span>(<span class="hljs-type">char</span> dest[], <span class="hljs-type">const</span> <span class="hljs-type">char</span> source[])<br></code></pre></td></tr></table></figure>
+
+<p>该函数接受两个参数</p>
+<ol>
+<li>目的字符串数组</li>
+<li>源字符串数组</li>
+</ol>
+<p>同时应满足第一个参数的长度<strong>不小于</strong>第二个参数</p>
+<p>第二个参数的 <code>const</code> 说明符，表示这个<strong>函数不会修改</strong>第二个字符串。</p>
+<p><code>strcpy()</code>也可以<strong>用于字符数组的赋值</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> str[<span class="hljs-number">10</span>];<br><span class="hljs-built_in">strcpy</span>(str, <span class="hljs-string">&quot;abcd&quot;</span>);<span class="hljs-comment">//将 a,b,c,d 放入了长度为10的字符串数组</span><br></code></pre></td></tr></table></figure>
+
+<p><code>strcpy()</code> 的<strong>第一个参数</strong>最好是一个<strong>已经声明的数组</strong>，而不是声明后没有进行初始化的字符指针。<br><strong>未进行初始化</strong>的数组，指向的是一个<strong>随机的</strong>位置，因此字符串可能被复制到任意地方。<br><code>strcpy()</code> 的返回值是一个字符串指针（即 <code>char*</code>），指向第一个参数。</p>
+<p><code>strcpy()</code> 函数有安全风险，因为它并<strong>不检查目标字符串的长度</strong>，不判断<strong>是否足够容纳源字符串的副本</strong>，可能<strong>导致写入溢出</strong>。<br>而 <code>strncpy()</code> 函数则可避免此风险</p>
+<h1 id="5-strncpy"><a href="#5-strncpy" class="headerlink" title="5. strncpy()"></a>5. strncpy()</h1><blockquote>
+<p><code>strncpy()</code> 跟 <code>strcpy()</code> 的用法完全一样，只是<strong>多了&#x3D;&#x3D;第3个参数</strong>&#x3D;&#x3D;，用来<strong>指定复制的最大字符数</strong>，防止溢出目标字符串变量的边界。<br>也可以用来<strong>拷贝部分字符串。</strong></p>
+</blockquote>
+<p>如果达到最大字符数以后，源字符串仍然没有复制完，就会<strong>停止复制</strong>，这时目的字符串&#x3D;&#x3D;<strong>结尾将没有终止符 <code>\0</code></strong>&#x3D;&#x3D;</p>
+<h1 id="6-strcat"><a href="#6-strcat" class="headerlink" title="6. strcat()"></a>6. strcat()</h1><blockquote>
+<p><code>strcat()</code> 函数用于连接字符串。它接受<strong>两个字符串作为参数</strong>，把<strong>第二个字符串的&#x3D;&#x3D;副本&#x3D;&#x3D;添加到第一个字符串的&#x3D;&#x3D;末尾&#x3D;&#x3D;<strong>。这个函数</strong>会改变第一个字符串</strong>，但是<strong>第二个字符串不变</strong>（因为是复制）。<br>返回值是一个字符串指针，<strong>指向第一个参数</strong>。</p>
+</blockquote>
+<p><code>strcat()</code> 的第一个参数的长度，<strong>必须足以容纳</strong>添加第二个参数字符串。否则，拼接后的字符串会溢出第一个字符串的边界，写入相邻的内存单元<br>同样，可以使用 <code>strncat()</code> 避免此类风险</p>
+<h1 id="7-strncat"><a href="#7-strncat" class="headerlink" title="7. strncat()"></a>7. strncat()</h1><blockquote>
+<p><strong>用法与 <code>strcat()</code> 完全一致</strong>，只是增加了第三个参数，指定最大添加的字符数。<br>添加过程中，一旦<strong>达到指定的字符数</strong>，或者在<strong>源字符串中遇到空字符 <code>\0</code><strong>，就不再添加了<br>返回值是一个字符串指针，</strong>指向第一个参数</strong>。</p>
+</blockquote>
+<p>为了保证连接后的字符串，不超过目标字符串的长度，<code>strncat()</code>通常会写成下面这样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-built_in">strncat</span>(<br>  str1, <br>  str2, <br>  <span class="hljs-keyword">sizeof</span>(str1) - <span class="hljs-built_in">strlen</span>(str1) - <span class="hljs-number">1</span><br>);<br></code></pre></td></tr></table></figure>
+<p><code>strncat()</code> 总是会在拼接结果的结尾，自动添加空字符 <code>\0</code>，所以第三个参数的最大值，应该是 <code>str1</code> 的变量长度减去 <code>str1</code> 的字符串长度，再减去 <code>1</code></p>
+<h1 id="8-strcmp"><a href="#8-strcmp" class="headerlink" title="8.strcmp()"></a>8.strcmp()</h1><blockquote>
+<p><code>strcmp()</code>函数用于比较两个字符串的内容。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* <span class="hljs-title function_">strcat</span><span class="hljs-params">(<span class="hljs-type">char</span>* s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* s2)</span>;<br></code></pre></td></tr></table></figure>
+
+<p>按照<strong>字典顺序</strong>，如果两个<strong>字符串相同</strong>，<strong>返回值为 <code>0</code></strong> 如果 <code>s1</code> <strong>小于</strong> <code>s2</code>，<code>strcmp()</code> <strong>返回值小于0</strong>；如果 <code>s1</code> <strong>大于</strong> <code>s2</code>，<strong>返回值大于0。</strong></p>
+<p><strong>只用来比较字符串</strong>，不用来比较字符，不要把字符类型（<code>char</code>）的值，放入 <code>strcmp()</code> 当作参数。</p>
+<h1 id="9-strncmp"><a href="#9-strncmp" class="headerlink" title="9. strncmp()"></a>9. strncmp()</h1><blockquote>
+<p>由于 <code>strcmp()</code> 比较的是<strong>整个字符串</strong>，C 语言又提供了 <code>strncmp()</code> 函数，只比较到指定的位置。<br>该函数增加了<strong>第三个参数</strong>，**指定了&#x3D;&#x3D;比较的字符数&#x3D;&#x3D;**。<br>其他与 <code>strcmp()</code> 一致</p>
+</blockquote>
+<h1 id="10-sprintf-，snprintf"><a href="#10-sprintf-，snprintf" class="headerlink" title="10. sprintf()，snprintf()"></a>10. sprintf()，snprintf()</h1><blockquote>
+<p><code>sprintf()</code> 函数跟 <code>printf()</code> 类似，但是用于<strong>将数据写入字符串</strong>，而不是输出到显示器。该函数的原型定义在 <code>stdio.h</code> 头文件里面。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">sprintf</span><span class="hljs-params">(<span class="hljs-type">char</span>* s, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* format, ...)</span>;<br></code></pre></td></tr></table></figure>
+<p><code>sprintf()</code> 的<strong>第一个参数</strong>是<strong>字符串指针变量</strong>（即要被写入数据的字符数组），其余参数和 <code>printf()</code> 相同，即第二个参数是格式字符串，后面的参数是待写入的变量列表。</p>
+<p><strong>返回值</strong>是<strong>写入变量的字符数量</strong>（<strong>不计</strong>入尾部的<strong>空字符 <code>\0</code><strong>）。如果</strong>遇到错误，返回负值</strong>。<br><code>sprintf()</code> 有严重的安全风险，如果写入的字符串过长，超过了目标字符串的长度，<code>sprintf()</code> 依然会将其写入，导致发生溢出。</p>
+<p><strong><code>snprintf()</code></strong> 只比 <code>sprintf()</code> 多了**一个参数 <code>n</code>**，用来控制写入变量的字符串不超过 <code>n - 1</code> 个字符，剩下一个位置写入空字符 <code>\0</code>。（与前面几个不同，多出来的参数是写在中间的）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">snprintf</span><span class="hljs-params">(<span class="hljs-type">char</span>*s, <span class="hljs-type">size_t</span> n, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* format, ...)</span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>snprintf()</code><strong>总是会自动写入字符串结尾的空字符</strong>。如果你尝试写入的字符数<strong>超过指定的最大字符数</strong>，<code>snprintf()</code> 会写入 n - 1 个字符，<strong>留出最后一个位置写入空字符</strong>。</p>
+<p><strong>返回值</strong>是<strong>写入格式字符串的字符数量</strong>（<strong>不计入</strong>尾部的**空字符 <code>\0</code>**）</p>
+<h1 id="11-字符串数组"><a href="#11-字符串数组" class="headerlink" title="11. 字符串数组"></a>11. 字符串数组</h1><blockquote>
+<p>如果一个数组的每个成员都是一个字符串，需要通过<strong>二维的字符数组</strong>实现。每个字符串本身是一个字符数组，多个字符串再组成一个数组。<br>第二维的长度统一为最长的那个（<strong>包括 <code>\0</code> 且必须指定</strong>）<br>而第一维的长度将被<strong>自动计算</strong></p>
+</blockquote>
+<p>数组的第二维，长度统一定为10，有点浪费空间，因为大多数成员的长度都小于10。解决方法就是<strong>把数组的第二维，从字符数组改成字符指针。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* weekdays[] = &#123;<br>  <span class="hljs-string">&quot;Monday&quot;</span>,<br>  <span class="hljs-string">&quot;Tuesday&quot;</span>,<br>  <span class="hljs-string">&quot;Wednesday&quot;</span>,<br>  <span class="hljs-string">&quot;Thursday&quot;</span>,<br>  <span class="hljs-string">&quot;Friday&quot;</span>,<br>  <span class="hljs-string">&quot;Saturday&quot;</span>,<br>  <span class="hljs-string">&quot;Sunday&quot;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>上面的字符串数组，其实是一个<strong>一维数组</strong>，<strong>成员</strong>就是<strong>7个字符指针</strong>，每个指针<strong>指向一个字符串（字符数组）。</strong></p>
+<p>遍历字符串数组的写法如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">7</span>; i++) &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, weekdays[i]);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="各函数对比"><a href="#各函数对比" class="headerlink" title="各函数对比"></a>各函数对比</h1><table>
+<thead>
+<tr>
+<th align="left">函数名称</th>
+<th align="left">作用</th>
+<th align="left">头文件</th>
+<th>存在溢出风险</th>
+<th>操作结束后是否会添加<code>\0</code></th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">strcpy()</td>
+<td align="left">复制字符串的内容</td>
+<td align="left">string.h</td>
+<td>√</td>
+<td>×</td>
+<td>指向第一个参数（复制目标）的指针</td>
+</tr>
+<tr>
+<td align="left">strncpy()</td>
+<td align="left">复制字符串（不超出第一个参数容量）的内容</td>
+<td align="left">string.h</td>
+<td>×</td>
+<td>×</td>
+<td>指向第一个参数（复制目标）的指针</td>
+</tr>
+<tr>
+<td align="left">strcat()</td>
+<td align="left">连接（不超出第一个参数容量）两个字符串</td>
+<td align="left">string.h</td>
+<td>√</td>
+<td>×</td>
+<td>指向第一个参数的指针</td>
+</tr>
+<tr>
+<td align="left">strncat()</td>
+<td align="left">连接两个字符串</td>
+<td align="left">string.h</td>
+<td>×</td>
+<td>√</td>
+<td>指向第一个参数的指针</td>
+</tr>
+<tr>
+<td align="left">strcmp()</td>
+<td align="left">比较两个字符串的内容</td>
+<td align="left">string.h</td>
+<td>√</td>
+<td>\</td>
+<td>两个字符串相同，返回0</td>
+</tr>
+<tr>
+<td align="left">strncmp()</td>
+<td align="left">比较两个字符串（指定长度）的内容</td>
+<td align="left">string.h</td>
+<td>×</td>
+<td>\</td>
+<td>同strcmp()</td>
+</tr>
+<tr>
+<td align="left">sprintf()</td>
+<td align="left">将数据写入字符串</td>
+<td align="left"><strong>stdio.h</strong></td>
+<td>√</td>
+<td>×</td>
+<td>写入变量的字符数，遇到错误，<strong>返回负值</strong>。</td>
+</tr>
+<tr>
+<td align="left">snprintf()</td>
+<td align="left">将数据写入（不超出第一个参数容量的）字符串</td>
+<td align="left"><strong>stdio.h</strong></td>
+<td>×</td>
+<td>√</td>
+<td>写入变量的字符数，遇到错误，<strong>返回负值</strong>。</td>
+</tr>
+<tr>
+<td align="left">strlen()</td>
+<td align="left">返回字符串的字节长度</td>
+<td align="left">string.h</td>
+<td>\</td>
+<td>\</td>
+<td>返回字符串的<strong>字节长度</strong>，不包括末尾的空字符 <strong><code>\0</code></strong></td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">C</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>9.字符串</div>
+      <div>http://k-azv.github.io/2024/02/24/九、字符串/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kazv</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E4%B8%89%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" title="3.运算符">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">3.运算符</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E4%BA%94%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="5.数据类型">
+                        <span class="hidden-mobile">5.数据类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

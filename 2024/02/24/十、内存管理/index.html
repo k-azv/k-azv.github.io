@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kazv">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 简介 系统管理 栈 局部变量，函数运行时进入内存，运行结束卸载   用户手动管理 堆 全局变量 内存泄漏     系统管理的内存，主要是函数内部的变量（局部变量）。这部分变量在函数运行时进入内存，函数运行结束后自动从内存卸载。这些变量存放的区域称为”栈“（stack），”栈“所在的内存是系统自动管理的。用户手动管理的内存，主要是程序运行的整个过程中都存在的变量（全局变量），这些变量需要用户手">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10.内存管理">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/%E5%8D%81%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="k-azv.github.io">
+<meta property="og:description" content="1. 简介 系统管理 栈 局部变量，函数运行时进入内存，运行结束卸载   用户手动管理 堆 全局变量 内存泄漏     系统管理的内存，主要是函数内部的变量（局部变量）。这部分变量在函数运行时进入内存，函数运行结束后自动从内存卸载。这些变量存放的区域称为”栈“（stack），”栈“所在的内存是系统自动管理的。用户手动管理的内存，主要是程序运行的整个过程中都存在的变量（全局变量），这些变量需要用户手">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-24T03:45:14.000Z">
+<meta property="article:modified_time" content="2024-02-25T10:35:50.577Z">
+<meta property="article:author" content="kazv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>10.内存管理 - k-azv.github.io</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"k-azv.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kazv&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="10.内存管理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-24 11:45" pubdate>
+          2024年2月24日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">10.内存管理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><ul>
+<li>系统管理<ul>
+<li>栈</li>
+<li>局部变量，函数运行时进入内存，运行结束卸载</li>
+</ul>
+</li>
+<li>用户手动管理<ul>
+<li>堆</li>
+<li>全局变量</li>
+<li>内存泄漏</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>系统管理的内存，主要是<strong>函数内部的变量（局部变量）</strong>。这部分变量在函数运行时进入内存，函数运行结束后自动从内存卸载。这些变量存放的区域称为”栈“（stack），”栈“所在的内存是系统自动管理的。<br>用户手动管理的内存，主要是<strong>程序运行的整个过程中都存在的变量（全局变量）</strong>，这些变量需要用户手动从内存释放。如果使用后忘记释放，它就<strong>一直占用内存，直到程序退出</strong>，这种情况称为“<strong>内存泄漏</strong>”（memory leak）。这些变量所在的内存称为”堆“（heap），”堆“所在的内存是用户手动管理的。</p>
+</blockquote>
+<h1 id="2-void-指针"><a href="#2-void-指针" class="headerlink" title="2. void 指针"></a>2. void 指针</h1><blockquote>
+<p><strong>每一块内存</strong>都有<strong>地址</strong>，通过## void 指针可以获取指定地址的内存块。指针变量必须有<strong>类型</strong>，否则编译器无法知道，如何解读内存块保存的二进制数据。</p>
+<p>请求内存时却<strong>不确定</strong>内存的数据类型，于是我们使用<strong>不定类型的指针“void 指针”</strong>。它<strong>只有内存块的地址信息</strong>，没有类型信息，等到<strong>使用该块内存的时候</strong>，<strong>再向编译器补充说明</strong>，里面的数据类型是什么。</p>
+</blockquote>
+<p>void 指针<strong>等同于无类型指针</strong>，可以<strong>指向任意类型的数据</strong>，但是<strong>不能解读数据</strong></p>
+<ul>
+<li><strong>指向任意类型的数据</strong><ul>
+<li>任一类型的指针都可以转为 void 指针，而 void 指针也可以转为任一类型的指针。<strong>（相互转换）</strong></li>
+</ul>
+</li>
+<li><strong>不能解读数据</strong><ul>
+<li>但由于无法确定指向的数据的类型，所以<strong>无法使用 <code>*</code> 运算符</strong>取出 void 指针指向的值</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-malloc"><a href="#3-malloc" class="headerlink" title="3. malloc()"></a>3. malloc()</h1><blockquote>
+<p><code>malloc()</code> 函数用于<strong>分配内存</strong>，该函数向系统要求一段内存，系统就在“堆”里面分配一段连续的内存块给它。它的原型定义在头文件 <code>stdlib.h</code>。<br>接受一个&#x3D;&#x3D;<strong>非负整数作为参数</strong>&#x3D;&#x3D;，表示所要分配的<strong>内存字节数</strong>，&#x3D;&#x3D;返回一个 <strong>void 指针&#x3D;&#x3D;，指向分配好的内存块</strong>。<br>可以使用 <code>malloc()</code> 为任意类型的数据分配内存，常见的做法是先使用** <code>sizeof()</code> 函数** ，算出<strong>某种数据类型所需的字节长度</strong>，然后再将这个长度传给 <code>malloc()</code>。[[五、数据类型#8. sizeof 运算符|sizeof]]</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<span class="hljs-comment">//此时已为 p 分配了一个确定的内存地址</span><br><br>*p = <span class="hljs-number">12</span>;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, *p); <span class="hljs-comment">// 12</span><br><span class="hljs-comment">/*实质上，C语言会自动为int类型提供内存*/</span><br></code></pre></td></tr></table></figure>
+
+<p>有时候为了增加代码的可读性，可以对<code>malloc()</code>返回的指针进行一次<strong>强制类型转换</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p = (<span class="hljs-type">int</span>*) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br></code></pre></td></tr></table></figure>
+
+<p><code>sizeof()</code> 的参数<strong>可以是变量</strong>，所以上面的例子也可以写成下面这样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p = (<span class="hljs-type">int</span>*) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(*p));<br></code></pre></td></tr></table></figure>
+
+<p><code>malloc()</code> 分配内存<strong>有可能分配失败</strong>，这时<strong>返回常量 <code>NULL</code><strong>。</strong><code>Null</code> 的值为0</strong>，是一个<strong>无法读写的内存地址</strong>，可以理解成一个<strong>不指向任何地方的指针</strong>。</p>
+<p><code>malloc()</code> 最<strong>常用</strong>的场合，就是<strong>为数组和自定义数据结构分配内存</strong>。<br><code>malloc()</code> 用来创建数组，有一个好处，就是它<strong>可以创建动态数组</strong>，即根据成员<strong>数量的不同</strong>，而<strong>创建长度不同</strong>的数组。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p = (<span class="hljs-type">int</span>*) <span class="hljs-built_in">malloc</span>(n * <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br></code></pre></td></tr></table></figure>
+<p>上面示例中，<code>malloc()</code> 可以根据<strong>变量 <code>n</code> 的不同</strong>，动态为数组<strong>分配不同的大小</strong>。</p>
+<p><code>malloc()</code><strong>不会对所分配的内存进行初始化</strong>，里面<strong>还保存着原来的值</strong>。如果没有初始化，就使用这段内存，可能从里面读到以前的值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* p = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">4</span>);<br><span class="hljs-built_in">strcpy</span>(p, <span class="hljs-string">&quot;abc&quot;</span>);<span class="hljs-comment">//为字符串变量赋值</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="4-free"><a href="#4-free" class="headerlink" title="4. free()"></a>4. free()</h1><blockquote>
+<p><code>free()</code> 用于<strong>释放 <code>malloc()</code> 函数分配的内存</strong>，将这块内存还给系统以便重新使用，否则这个内存块会一直占用到程序运行结束。该函数的原型定义在头文件 <code>stdlib.h</code> 里面。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">free</span><span class="hljs-params">(<span class="hljs-type">void</span>* block)</span><br></code></pre></td></tr></table></figure>
+<p>上面代码中，<code>free()</code> 的<strong>参数</strong>是 <code>malloc()</code><strong>返回的内存地址</strong><br>实例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* p = (<span class="hljs-type">int</span>*) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">//p是malloc为其分配的地址</span><br><br>*p = <span class="hljs-number">12</span>;<br><span class="hljs-built_in">free</span>(p);<br></code></pre></td></tr></table></figure>
+<p>分配的内存块<strong>一旦释放</strong>，就<strong>不应该再次操作</strong>已经释放的地址，也<strong>不应该</strong>再次使用 <code>free()</code> 对该地址<strong>释放第二次</strong>。</p>
+<p>函数内部未释放内存，而函数运行结束后，指向<strong>已分配地址的指针消失</strong>，则每次调用该函数都会留下<strong>无法访问的内存块</strong>，造成内存浪费</p>
+<h1 id="5-calloc"><a href="#5-calloc" class="headerlink" title="5. calloc()"></a>5. calloc()</h1><blockquote>
+<p><code>calloc()</code>函数的作用与<code>malloc()</code>相似，也是分配内存块。该函数的原型定义在头文件<code>stdlib.h</code>。</p>
+</blockquote>
+<ul>
+<li><code>calloc()</code> 接受<strong>两个参数</strong>，第一个参数是<strong>某种数据类型的值的数量</strong>，第二个是该<strong>数据类型的单位字节长度</strong>。（malloc 是直接放入总字节，而 calloc 参数的乘积是总字节）</li>
+<li><code>calloc()</code>会**将所分配的内存全部初始化为<code>0</code>**。<code>malloc()</code>不会对内存进行初始化，如果想要初始化为<code>0</code>，还要额外调用<code>memset()</code>函数。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">接受的参数</th>
+<th align="center">是否会将分配的内存初始化</th>
+<th align="center">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>malloc()</td>
+<td align="center">一个</td>
+<td align="center">否，直接调用可能会返回内存中已有的值</td>
+<td align="center">void 指针。失败时，返回 NULL。</td>
+</tr>
+<tr>
+<td>calloc()</td>
+<td align="center">两个</td>
+<td align="center">是</td>
+<td align="center">void 指针。失败时，返回 NULL。</td>
+</tr>
+</tbody></table>
+<h1 id="6-realloc"><a href="#6-realloc" class="headerlink" title="6. realloc()"></a>6. realloc()</h1><blockquote>
+<p><code>realloc()</code> 函数用于<strong>修改已经分配的内存块的大小</strong>，可以<strong>放大</strong>也可以<strong>缩小</strong>，<strong>返回</strong>一个<strong>指向新的内存块的指针</strong>。如果分配不成功，返回 NULL。该函数的原型定义在头文件 <code>stdlib.h</code>。</p>
+</blockquote>
+<p>它接受两个参数。</p>
+<ul>
+<li><code>block</code>：<strong>已经分配好</strong>的内存块指针（由<code>malloc()</code>或<code>calloc()</code>或<code>realloc()</code>产生）。</li>
+<li><code>size</code>：该内存块的<strong>新大小</strong>，单位为字节。</li>
+</ul>
+<p><strong>可能</strong>返回一个<strong>全新</strong>的地址（数据也会自动复制过去），也可能返回跟<strong>原来一样</strong>的地址<br>realloc 优先在原内存块修改，通常返回后者</p>
+<p>如果新内存块<strong>小于</strong>原来的大小，则<strong>丢弃</strong>超出的部分；如果<strong>大于</strong>原来的大小，则<strong>不对新增的部分进行初始化</strong>（程序员可以自动调用 <code>memset()</code>）。即原始内存块中数据所占据的内存以外的部分<strong>数据是不确定的</strong></p>
+<p><code>realloc()</code> 的<strong>第一个参数可以是 NULL</strong>，这时就<strong>相当于新建一个指针</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* p = <span class="hljs-built_in">realloc</span>(<span class="hljs-literal">NULL</span>, <span class="hljs-number">3490</span>);<br><span class="hljs-comment">// 等同于</span><br><span class="hljs-type">char</span>* p = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">3490</span>);<br></code></pre></td></tr></table></figure>
+<p>将第二个参数设为 0，即让新的内存大小为0，相当于<strong>释放掉内存块</strong></p>
+<p><strong>有分配失败的可能</strong>，所以调用 <code>realloc()</code> 以后，最好<strong>检查一下它的返回值</strong>是否为 NULL。分配失败时，<strong>原有内存块中的数据不会发生改变</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">float</span>* new_p = <span class="hljs-built_in">realloc</span>(p, <span class="hljs-keyword">sizeof</span>(*p * <span class="hljs-number">40</span>));<br><br><span class="hljs-keyword">if</span> (new_p == <span class="hljs-literal">NULL</span>) &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error reallocing\n&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>realloc()</code> 不会对内存块进行初始化。</p>
+<h1 id="7-restrict-说明符"><a href="#7-restrict-说明符" class="headerlink" title="7. restrict 说明符"></a>7. restrict 说明符</h1><blockquote>
+<p>声明指针变量时，可以使用 <code>restrict</code> 说明符，告诉编译器，<strong>该块内存区域只有当前指针一种访问方式</strong>，其他指针不能读写该块内存。这种指针称为“受限指针”（restrict pointer）。(即不可将该地址赋予其他指针)</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* <span class="hljs-keyword">restrict</span> p;<br>p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br></code></pre></td></tr></table></figure>
+<p>上面示例中，声明指针变量 <code>p</code> 时，加入了 <code>restrict</code> 说明符，使得**<code>p</code> 变成了受限指针** 。后面，当 <strong><code>p</code> 指向 <code>malloc()</code> 函数返回的一块内存区域</strong>，就意味着，<strong>该区域只有通过 <code>p</code> 来访问</strong>，不存在其他访问方式。</p>
+<h1 id="8-memcpy"><a href="#8-memcpy" class="headerlink" title="8. memcpy()"></a>8. memcpy()</h1><blockquote>
+<p><code>memcpy()</code> 用于将一块内存拷贝到另一块内存。该函数的原型定义在头文件 <code>string.h</code>。  </p>
+</blockquote>
+<p>该函数内涵三个参数</p>
+<ol>
+<li>指向<strong>内存目标区域</strong>的指针，即<strong>复制后</strong>数据储存的位置</li>
+<li>指向<strong>源内存区域</strong>的指针，即<strong>要被复制</strong>的数据。</li>
+<li>要被复制的<strong>字节数</strong>。</li>
+</ol>
+<p>如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-built_in">memcpy</span>(a, b, <span class="hljs-keyword">sizeof</span>(b));<br></code></pre></td></tr></table></figure>
+<p>将要将 b 指向的内存地址中的数据复制一份到 a 指向的内存地址，总共复制 <code>sizeof (b)</code> 字节的数据</p>
+<h1 id="9-memmove"><a href="#9-memmove" class="headerlink" title="9. memmove()"></a>9. memmove()</h1><blockquote>
+<p> <code>memmove()</code> 函数用于<strong>将一段内存数据复制到另一段内存</strong>。它跟 <code>memcpy()</code> 的主要区别是，它<strong>允许目标区域与源区域有重叠</strong>。如果<strong>发生重叠，&#x3D;&#x3D;源区域&#x3D;&#x3D;的内容会被更改</strong>；如果没有重叠，它与 <code>memcpy()</code> 行为相同。<br> 头文件 <code>string.h</code>。\</p>
+</blockquote>
+<h1 id="10-memcmp"><a href="#10-memcmp" class="headerlink" title="10. memcmp()"></a>10. memcmp()</h1><blockquote>
+<p> <code>memcmp()</code> 函数用来<strong>比较两个内存区域</strong>。它的原型定义在 <code>string.h</code>。<br> 接受<strong>三个参数</strong>，前两个参数是用来比较的指针，第三个参数指定比较的字节数。<br> 返回值是一个整数。两块内存区域的每个字节以字符形式解读，按照字典顺序进行比较，如果两者相同，返回<code>0</code>；如果<code>s1</code>大于<code>s2</code>，返回大于0的整数；如果<code>s1</code>小于<code>s2</code>，返回小于0的整数。<br> [[九、字符串#8.strcmp()|strcmp()]]</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* s1 = <span class="hljs-string">&quot;abc&quot;</span>;<br><span class="hljs-type">char</span>* s2 = <span class="hljs-string">&quot;acd&quot;</span>;<br><span class="hljs-type">int</span> r = <span class="hljs-built_in">memcmp</span>(s1, s2, <span class="hljs-number">3</span>); <span class="hljs-comment">// 小于 0</span><br></code></pre></td></tr></table></figure>
+<p>上面示例比较<code>s1</code>和<code>s2</code>的前三个字节，由于<code>s1</code>小于<code>s2</code>，所以<code>r</code>是一个小于0的整数，一般为-1。</p>
+<p><code>memcmp()</code> 可以比较内部带有字符串终止符 <code>\0</code> 的内存区域。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">C</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>10.内存管理</div>
+      <div>http://k-azv.github.io/2024/02/24/十、内存管理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kazv</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E5%85%AB%E3%80%81%E6%95%B0%E7%BB%84/" title="8.数组">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">8.数组</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/24/%E5%9B%9B%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="4.流程控制">
+                        <span class="hidden-mobile">4.流程控制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
