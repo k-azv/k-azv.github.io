@@ -16,22 +16,21 @@
   <meta name="author" content="kazv">
   <meta name="keywords" content="">
   
-    <meta name="description" content="hello world">
+    <meta name="description" content="1. 简介 typedef 命令用来为某个类型起别名。  1typedef type name;  上面代码中，type代表类型名，name代表别名。类似 [[..&#x2F;python&#x2F;一、基础知识&#x2F;8. 函数#8.6 在模块中储存函数|as 函数]] 可以为一个类型一次指定多个别名：typedef int antelope, bagel, mushroom; 为 int">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello world">
-<meta property="og:url" content="http://k-azv.github.io/2024/02/19/Hello%20world/index.html">
+<meta property="og:title" content="12.typedef 命令">
+<meta property="og:url" content="http://k-azv.github.io/2024/02/24/12.%20typedef%20%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="k-azv.github.io">
-<meta property="og:description" content="hello world">
+<meta property="og:description" content="1. 简介 typedef 命令用来为某个类型起别名。  1typedef type name;  上面代码中，type代表类型名，name代表别名。类似 [[..&#x2F;python&#x2F;一、基础知识&#x2F;8. 函数#8.6 在模块中储存函数|as 函数]] 可以为一个类型一次指定多个别名：typedef int antelope, bagel, mushroom; 为 int">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-19T13:27:11.000Z">
-<meta property="article:modified_time" content="2024-02-22T13:23:19.218Z">
+<meta property="article:published_time" content="2024-02-24T03:45:14.000Z">
+<meta property="article:modified_time" content="2024-02-27T09:45:46.065Z">
 <meta property="article:author" content="kazv">
-<meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hello world - k-azv.github.io</title>
+  <title>12.typedef 命令 - k-azv.github.io</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello world"></span>
+            <span id="subtitle" data-typed-text="12.typedef 命令"></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-19 21:27" pubdate>
-          2024年2月19日 晚上
+        <time datetime="2024-02-24 11:45" pubdate>
+          2024年2月24日 中午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          691 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -268,12 +267,83 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello world</h1>
+            <h1 id="seo-header">12.typedef 命令</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>hello world</strong></p>
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><blockquote>
+<p><code>typedef</code> 命令用来<strong>为某个类型</strong>起别名。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> type name;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>type</code>代表类型名，<code>name</code>代表别名。<br>类似 [[..&#x2F;python&#x2F;一、基础知识&#x2F;8. 函数#8.6 在模块中储存函数|as 函数]]</p>
+<p>可以为<strong>一个类型</strong>一次指定<strong>多个</strong>别名：<br><code>typedef int antelope, bagel, mushroom;</code> 为 int 类型取了三个别名<br>但是一次只能为一个类型取别名</p>
+<p>某个<strong>别名</strong>所指代的类型<strong>可以多次修改</strong>，[[#^1d2849|实例]]</p>
+<p>可以使用别名直接声明变量 <code>bagel a = 2</code></p>
+<p>也可以用来为数组类型起别名。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> five_ints[<span class="hljs-number">5</span>]; <br><span class="hljs-comment">//定义一个可包含5个整数的整数数组名NAME</span><br><br>five_ints x = &#123;<span class="hljs-number">11</span>, <span class="hljs-number">22</span>, <span class="hljs-number">33</span>, <span class="hljs-number">44</span>, <span class="hljs-number">55</span>&#125;;<br></code></pre></td></tr></table></figure>
+<p>为数组起别名的同时将<strong>创建一个新类型</strong>，此类型的成员已经固定，[[十一、struct 结构#1. 简介|struct 结构]] 能起到类似效果</p>
+<p>typedef <strong>为函数起别名</strong>的写法如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">signed</span> <span class="hljs-title function_">char</span> <span class="hljs-params">(*fp)</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，类型别名 <code>fp</code> 是一个指针，代表函数 <code>signed char (*)(void)</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-comment">// 原始的函数声明</span><br><span class="hljs-type">signed</span> <span class="hljs-type">char</span> <span class="hljs-title function_">my_function</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;A&#x27;</span>;<br>&#125;<br><br><span class="hljs-comment">// 使用 typedef 定义函数指针类型别名</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">signed</span> <span class="hljs-title function_">char</span> <span class="hljs-params">(*fp)</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 声明函数指针变量并初始化为指向 my_function 函数的指针</span><br>    fp pointer = &amp;my_function;<br>    <span class="hljs-comment">// 通过函数指针调用函数</span><br>    <span class="hljs-type">signed</span> <span class="hljs-type">char</span> result = (*pointer)();<br>    <span class="hljs-comment">// 输出结果</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Result: %c\n&quot;</span>, result);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-typedef-的好处"><a href="#2-typedef-的好处" class="headerlink" title="2. typedef 的好处"></a>2. typedef 的好处</h1><ol>
+<li><p><strong>提高代码可读性</strong></p>
+<ul>
+<li>可以为复杂的数据类型定义简洁易懂的别名，使代码更易读。</li>
+</ul>
+</li>
+<li><p><strong>方便引用复杂数据结构</strong></p>
+<ul>
+<li>可以为struct、union、enum等定义的数据类型创建别名，便于引用和操作。</li>
+</ul>
+</li>
+<li><p><strong>便于修改变量类型</strong></p>
+<ul>
+<li>可以轻松修改变量的类型，只需修改typedef语句即可。</li>
+</ul>
+</li>
+<li><p><strong>提高可移植性</strong></p>
+<ul>
+<li>可以在不同计算机架构上保证类型的一致性，增强代码的可移植性。</li>
+</ul>
+</li>
+<li><p><strong>简化类型声明</strong></p>
+<ul>
+<li>可以简化复杂的类型声明，使其更易理解和维护。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例和说明"><a href="#示例和说明" class="headerlink" title="示例和说明"></a>示例和说明</h3><ol>
+<li><p><strong>为指针类型起别名</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">char</span>* STRING;<br>STRING name;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>通过 STRING 定义了 char*类型的别名，使得变量 name 的类型更直观。</li>
+</ul>
+</li>
+<li><p><strong>为结构体类型起别名</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>    <span class="hljs-type">char</span> *name;<br>    <span class="hljs-type">int</span> leg_count, speed;<br>&#125; animal;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>通过 typedef 为匿名结构体起了别名 animal，简化了结构体的使用。</li>
+</ul>
+</li>
+<li><p><strong>为复杂类型声明起别名</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-title function_">char</span> <span class="hljs-params">(*Func)</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;<br><span class="hljs-keyword">typedef</span> Func Arr[<span class="hljs-number">5</span>];<br>Arr* <span class="hljs-title function_">x</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>通过 typedef 将复杂的函数指针数组声明简化，提高了代码的可读性。</li>
+</ul>
+</li>
+<li><p>方便以后为变量改类型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">float</span> app_float;<br><br>app_float f1, f2, f3;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>上面示例中，变量<code>f1</code>、<code>f2</code>、<code>f3</code>的类型都是<code>float</code>。如果以后需要为它们改类型，只需要修改<code>typedef</code>语句即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">double</span> app_float;<br></code></pre></td></tr></table></figure>
+
+<p>上面命令将变量 <code>f1</code>、<code>f2</code>、<code>f3</code> 的类型都改为 <code>long double</code>。 ^1d2849</p>
 
                 
               </div>
@@ -282,13 +352,27 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Test/" class="print-no-link">#Test</a>
-      
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">C</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
     </div>
+  
   
 </div>
 
@@ -298,8 +382,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello world</div>
-      <div>http://k-azv.github.io/2024/02/19/Hello world/</div>
+      <div>12.typedef 命令</div>
+      <div>http://k-azv.github.io/2024/02/24/12. typedef 命令/</div>
     </div>
     <div class="license-meta">
       
@@ -311,7 +395,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月19日</div>
+          <div>2024年2月24日</div>
         </div>
       
       
@@ -343,15 +427,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/24/9.%20%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="9.字符串">
+                      <a href="/2024/02/24/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/" title="3.运算符">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">9.字符串</span>
+                        <span class="hidden-mobile">3.运算符</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/02/24/6.%20%E6%8C%87%E9%92%88/" title="6.指针">
+                        <span class="hidden-mobile">6.指针</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
